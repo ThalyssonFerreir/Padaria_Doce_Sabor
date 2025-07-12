@@ -1,7 +1,7 @@
 function Salgados() {
   return (
     <div>
-      <h1>Bebidas e Cafeteria</h1>
+      <h1>Salgados e Fritos</h1>
     </div>
   );
 }

@@ -1,19 +1,20 @@
-import "aos/dist/aos.css";
-import "./assets/css/main.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from "react";
 import AOS from "aos";
-import Kits from "./componentes/Kits.jsx";
-import Chefs from "./componentes/Chefs.jsx";
-import Gallery from "./componentes/Gallery.jsx";
-import TrabalheConosco from "./componentes/TrabalheConosco.jsx";
-import Header from "./componentes/Header.jsx";
-import Inicio from "./componentes/Inicio.jsx";
-import Historia from "./componentes/Historia.jsx";
-import Menu from "./componentes/Menu.jsx";
-import Testimonials from "./componentes/Testimonials.jsx";
-import Footer from "./componentes/Footer.jsx";
+import "aos/dist/aos.css";
+import "./assets/css/main.css";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from "./componentes/Header";
+import Footer from "./componentes/Footer";
+import Inicio from "./componentes/Inicio";
+import Historia from "./componentes/Historia";
+import Menu from "./componentes/Menu";
+import Testimonials from "./componentes/Testimonials";
+import Kits from "./componentes/Kits";
+import Chefs from "./componentes/Chefs";
+import Gallery from "./componentes/Gallery";
+import TrabalheConosco from "./componentes/TrabalheConosco";
+
 import Paes from './pages/Paes';
 import Salgados from './pages/Salgados';
 import Doces from './pages/Doces';
@@ -32,26 +33,65 @@ function App() {
 
   return (
     <Router>
-      <main>
-        <Header />
-        <Inicio />
-        <Historia />
-        <Menu />
-        <Testimonials />
-        <Kits />
-        <Chefs />
-        <Gallery />
-        <TrabalheConosco />
-        <Footer />
-
-        <Routes>
-          <Route path="/Paes" element={<Paes />} />
-          <Route path="/Salgados" element={<Salgados />} />
-          <Route path="/Doces" element={<Doces />} />
-          <Route path="/Bebidas" element={<Bebidas />} />
-          <Route path="/Produtos" element={<Produtos />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Inicio />
+              <Historia />
+              <Menu />
+              <Testimonials />
+              <Kits />
+              <Chefs />
+              <Gallery />
+              <TrabalheConosco />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/paes"
+          element={
+            <>
+              <Paes />
+            </>
+          }
+        />
+        <Route
+          path="/salgados"
+          element={
+            <>
+              <Salgados />
+            </>
+          }
+        />
+        <Route
+          path="/doces"
+          element={
+            <>
+              <Doces />
+            </>
+          }
+        />
+        <Route
+          path="/bebidas"
+          element={
+            <>
+              <Bebidas />
+            </>
+          }
+        />
+        <Route
+          path="/produtos"
+          element={
+            <>
+              <Produtos />
+            </>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

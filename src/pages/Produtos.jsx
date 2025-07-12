@@ -1,7 +1,7 @@
 function Produtos() {
   return (
     <div>
-      <h1>Bebidas e Cafeteria</h1>
+      <h1>Produtos e marcenaria</h1>
     </div>
   );
 }

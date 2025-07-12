@@ -1,7 +1,7 @@
 function Paes() {
   return (
     <div>
-      <h1>Bebidas e Cafeteria</h1>
+      <h1>Pães e comidas</h1>
     </div>
   );
 }

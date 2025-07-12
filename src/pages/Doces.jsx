@@ -1,7 +1,7 @@
 function Doces() {
   return (
     <div>
-      <h1>Bebidas e Cafeteria</h1>
+      <h1>Doces e Brigadeiros</h1>
     </div>
   );
 }
