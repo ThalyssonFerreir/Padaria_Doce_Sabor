@@ -13,31 +13,46 @@ import Menu from "./componentes/Menu.jsx";
 import Testimonials from "./componentes/Testimonials.jsx";
 import Footer from "./componentes/Footer.jsx";
 
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Paes from './pages/Paes';
+import Salgados from './pages/Salgados';
+import Doces from './pages/Doces';
+import Bebidas from './pages/Bebidas';
+import Produtos from './pages/Produtos';
 
 function App() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
-  }, []);
 
-     const preloader = document.getElementById("preloader");
+    const preloader = document.getElementById("preloader");
     if (preloader) {
       preloader.style.display = "none";
     }
+  }, []);
 
   return (
-    <main> 
-      <Header />
-      <Inicio />
-      <Historia />
-      <Menu />
-      <Testimonials />
-      <Kits />
-      <Chefs />
-      <Gallery />
-      <TrabalheConosco />
-      <Footer />
-    </main>
+    <Router>
+      <main>
+        <Header />
+        <Inicio />
+        <Historia />
+        <Menu />
+        <Testimonials />
+        <Kits />
+        <Chefs />
+        <Gallery />
+        <TrabalheConosco />
+        <Footer />
+
+        <Routes>
+          <Route path="/Paes" element={<Paes />} />
+          <Route path="/Salgados" element={<Salgados />} />
+          <Route path="/Doces" element={<Doces />} />
+          <Route path="/Bebidas" element={<Bebidas />} />
+          <Route path="/Produtos" element={<Produtos />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
