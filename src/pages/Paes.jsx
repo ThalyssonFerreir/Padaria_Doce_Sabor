@@ -1,4 +1,5 @@
-import '../assets/css/main.css'
+import { Link } from 'react-router-dom';
+import '../assets/css/main.css';
 
 function Paes() {
   const paes = [
@@ -74,7 +75,7 @@ function Paes() {
       descricao: "Versão sofisticada do clássico mineiro, casquinha crocante e interior macio, com muito queijo.",
       imagem: "/assets/img/imgsPadaria/pao12.png",
     },
-        {
+    {
       nome: "Pão Integral com Grãos",
       valor: "3,00",
       descricao: "Rico em fibras, massa macia e recheada de sementes variadas, sabor intenso e saudável.",
@@ -124,7 +125,6 @@ function Paes() {
     },
   ];
 
-  // Componente interno do card
   const ProductCard = ({ nome, valor, descricao, imagem }) => (
     <div className="product-card">
       <img src={imagem} alt={nome} />
@@ -134,28 +134,22 @@ function Paes() {
         <p className="product-card-description">{descricao}</p>
       </div>
       <div className="product-card-button-wrapper">
-        <button className="product-card-button">
-          Adicionar ao Carrinho
-        </button>
+        <button className="product-card-button">Adicionar ao Carrinho</button>
       </div>
     </div>
   );
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1 style={{ color: "#d2691e", textAlign: "center" }}>
-        Pães - Padaria Doce Sabor
-      </h1>
+    <div className="pagina-paes">
+      <h1>Pães - Padaria Doce Sabor</h1>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          justifyContent: "center",
-          marginTop: "40px",
-        }}
-      >
+      <div style={{ textAlign: "center" }}>
+        <Link to="/" className="btn-voltar-menu">
+          Voltar para o Menu
+        </Link>
+      </div>
+
+      <div className="container-cards">
         {paes.map((pao, index) => (
           <ProductCard
             key={index}

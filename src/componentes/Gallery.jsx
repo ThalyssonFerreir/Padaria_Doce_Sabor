@@ -1,7 +1,11 @@
-import { useEffect } from "react";
-import AOS from "aos";
-import Swiper from "swiper";
-import "swiper/css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const galleryItems = [
   { src: "/assets/img/gallery/gallery-1.jpg", alt: "Foto de um rocambole com cobertura de chocolate" },
@@ -19,35 +23,6 @@ const galleryItems = [
 function Gallery() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
-
-    new Swiper(".gallery .swiper", {
-      loop: true,
-      speed: 600,
-      autoplay: {
-        delay: 5000,
-      },
-      slidesPerView: "auto",
-      centeredSlides: true,
-      pagination: {
-        el: ".gallery .swiper-pagination",
-        type: "bullets",
-        clickable: true,
-      },
-      breakpoints: {
-        320: {
-          slidesPerView: 1,
-          spaceBetween: 0,
-        },
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-        1200: {
-          slidesPerView: 5,
-          spaceBetween: 20,
-        },
-      },
-    });
   }, []);
 
   return (
@@ -61,18 +36,25 @@ function Gallery() {
       </div>
 
       <div className="container" data-aos="fade-up" data-aos-delay="100">
-        <div className="swiper">
-          <div className="swiper-wrapper align-items-center">
-            {galleryItems.map((item, index) => (
-              <div className="swiper-slide" key={index}>
-                <a className="glightbox" data-gallery="images-gallery" href={item.src}>
-                  <img src={item.src} className="img-fluid" alt={item.alt} />
-                </a>
-              </div>
-            ))}
-          </div>
-          <div className="swiper-pagination"></div>
-        </div>
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          loop={true}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 3, spaceBetween: 20 },
+            1200: { slidesPerView: 5, spaceBetween: 30 },
+          }}
+        >
+          {galleryItems.map((item, index) => (
+            <SwiperSlide key={index}>
+              <a className="glightbox" data-gallery="images-gallery" href={item.src}>
+                <img src={item.src} className="img-fluid" alt={item.alt} />
+              </a>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );
