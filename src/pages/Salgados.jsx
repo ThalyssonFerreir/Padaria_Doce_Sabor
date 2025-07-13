@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../assets/css/main.css'
 
 function Salgados() {
@@ -105,7 +106,7 @@ function Salgados() {
       imagem: "/assets/img/imgsPadaria/salgad17.png",
     },
     {
-      nome: "Salgadingo de quijo de padaria",
+      nome: "Salgadingo de queijo de padaria",
       valor: "1,50",
       descricao: "Delicado salgado, massa saborosa, povilhado com queijo ralado.",
       imagem: "/assets/img/imgsPadaria/salgad18.png",
@@ -124,7 +125,6 @@ function Salgados() {
     },
   ];
 
-  // Componente interno do card
   const ProductCard = ({ nome, valor, descricao, imagem }) => (
     <div className="product-card">
       <img src={imagem} alt={nome} />
@@ -144,8 +144,14 @@ function Salgados() {
   return (
     <div style={{ padding: "40px" }}>
       <h1 style={{ color: "#d2691e", textAlign: "center" }}>
-        Pães - Padaria Doce Sabor
+        Salgados - Padaria Doce Sabor
       </h1>
+
+       <div style={{ textAlign: "center" }}>
+        <Link to="/" className="btn-voltar-menu">
+          Voltar para o Menu
+        </Link>
+      </div>
 
       <div
         style={{

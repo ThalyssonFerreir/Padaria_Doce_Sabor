@@ -22,7 +22,6 @@ import Bebidas from './pages/Bebidas';
 import Produtos from './pages/Produtos';
 
 
-
 function App() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -95,8 +94,6 @@ function App() {
         />
       </Routes>
     </Router>
-
-
   );
 }
 
