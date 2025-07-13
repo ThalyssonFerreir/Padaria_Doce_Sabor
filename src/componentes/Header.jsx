@@ -3,7 +3,7 @@ function Header() {
     <header id="header" className="header d-flex align-items-center sticky-top">
       <div className="container position-relative d-flex align-items-center justify-content-between">
         <a href="#inicio" className="logo d-flex align-items-center me-auto me-xl-0">
-          <h1 className="sitename">Doce Sabor</h1>
+          <h1 className="sitename"><img class="logoSite" src="/assets/img/imgsPadaria/PadariaLogo.png"></img></h1>
         </a>
 
         <nav id="navmenu" className="navmenu">
