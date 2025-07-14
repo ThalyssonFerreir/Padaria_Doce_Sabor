@@ -234,9 +234,9 @@ h6 {
 }
 
 .header .logo img {
-  width: 90px;
-  max-height: 90px;
-  margin-right: 8px;
+  width: 80px;
+  max-height: 120px;
+  margin-right: 14px;
 }
 
 .header .logo h1 {
