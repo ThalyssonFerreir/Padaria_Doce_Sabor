@@ -1,0 +1,210 @@
+/* Importando fontes para um visual mais elegante */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
+
+.container {
+  padding: 120px 15px 60px 15px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fdfaf6; /* Cor de fundo suave, que lembra farinha */
+  font-family: 'Roboto', sans-serif;
+}
+
+.title {
+  font-family: 'Playfair Display', serif; /* Fonte elegante para títulos */
+  color: #8B4513; /* Marrom, cor de pão assado */
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.8rem;
+}
+
+.emptyCart {
+  text-align: center;
+  color: #5a5a5a;
+  font-size: 1.2rem;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cartGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.cartItem:hover {
+  transform: translateY(-5px);
+}
+
+.cartItemImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #f0e6d2; /* Cor de massa de pão */
+}
+
+.cartItemDetails {
+  flex-grow: 1;
+}
+
+.cartItemDetails h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #8B4513;
+  margin: 0 0 10px 0;
+}
+
+.cartItemDetails p {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+  color: #d2691e; /* Cor de chocolate */
+  font-weight: 500;
+}
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantityControl label {
+  font-size: 0.9rem;
+  color: #5a5a5a;
+}
+
+.quantityInput {
+  width: 60px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: #cc5a5a;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: auto;
+  transition: color 0.2s ease;
+}
+
+.removeButton:hover {
+  color: #a02c2c;
+  text-decoration: underline;
+}
+
+.cartSummary {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.cartSummary h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #8B4513;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0e6d2;
+  padding-bottom: 10px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 15px;
+  background-color: #d2691e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.checkoutButton:hover {
+  background-color: #a04f16;
+  transform: scale(1.02);
+}
+
+/* Deixa o layout responsivo para celulares */
+@media (max-width: 768px) {
+  .cartGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Adicione estas classes no final de src/pages/Carrinho.module.css */
+
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 50px; /* Bordas arredondadas */
+  padding: 5px;
+  width: fit-content;
+}
+
+.quantityButton {
+  background-color: #fff;
+  border: none;
+  border-radius: 50%; /* Botões redondos */
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #8B4513;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.quantityButton:hover {
+  background-color: #8B4513;
+  color: #fff;
+}
+
+.quantityDisplay {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  min-width: 25px;
+  text-align: center;
+}

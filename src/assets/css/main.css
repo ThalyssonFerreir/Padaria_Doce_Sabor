@@ -18,7 +18,7 @@
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #37373f; /* Color for headings, subheadings and title throughout the website */
@@ -1791,4 +1791,110 @@ img{
   gap: 20px;
   justify-content: center;
   margin-top: 40px;
+}
+
+.back-to-menu-btn {
+  display: inline-block;
+  background-color: transparent;
+  color: #8B4513; /* Cor de pão (marrom) */
+  border: 2px solid #8B4513;
+  padding: 10px 20px;
+  margin: 20px 0 40px 0;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.back-to-menu-btn:hover {
+  background-color: #8B4513;
+  color: #fff;
+}
+
+/* =================================================================
+   Estilos Personalizados para a Seção do Menu
+   ================================================================= */
+
+/* Remove a cor de link azul padrão para os títulos dos cards */
+.menu .card-title-link {
+  text-decoration: none;
+}
+
+/* Estilo principal do card do menu */
+.menu .menu-item-card {
+  border: none; /* Remove a borda padrão */
+  border-radius: 12px;
+  overflow: hidden; /* Garante que a imagem com borda arredondada funcione */
+  background: #fdfaf6; /* Fundo creme, como o do carrinho */
+  box-shadow: 0 8px 20px rgba(139, 69, 19, 0.1); /* Sombra suave com a cor da padaria */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transição suave */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu .menu-item-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 28px rgba(139, 69, 19, 0.2);
+}
+
+/* Wrapper da imagem para o efeito de zoom */
+.menu .card-img-wrapper {
+  overflow: hidden;
+}
+
+.menu .menu-item-card .card-img-top {
+  height: 240px;
+  width: 100%;
+  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu .menu-item-card:hover .card-img-top {
+  transform: scale(1.1); /* Efeito de zoom na imagem */
+}
+
+/* Corpo do card */
+.menu .menu-item-card .card-body {
+  text-align: center;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Faz o corpo do card crescer para ocupar o espaço */
+}
+
+/* Título do card */
+.menu .menu-item-card .card-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #8B4513; /* Marrom escuro */
+  margin-bottom: 10px;
+}
+
+/* Descrição do card */
+.menu .menu-item-card .card-text {
+  color: #5a5a5a;
+  flex-grow: 1; /* Empurra o botão para baixo */
+  margin-bottom: 25px;
+}
+
+/* Botão personalizado */
+.menu .menu-item-card .btn-menu {
+  background-color: #d2691e; /* Cor de chocolate/doce */
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.menu .menu-item-card .btn-menu:hover {
+  background-color: #a04f16; /* Tom mais escuro ao passar o mouse */
+  color: #fff;
 }
