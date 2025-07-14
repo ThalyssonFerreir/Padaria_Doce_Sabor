@@ -1,0 +1,34 @@
+
+/* --- Estados de FINALIZANDO e FINALIZADO --- */
+
+.finalize-button.finishing {
+  background-color: #28a745; /* Cor verde para "Finalizando Compra" */
+}
+.finalize-button.finishing::before {
+  height: 100%; /* Garante que o "café" esteja cheio */
+  background-color: #28a745; /* Faz a cor do "café" mudar para verde */
+  transition: background-color 0.3s ease; /* Transição de cor */
+}
+.finalize-button.finishing .button-text::after {
+    content: none; /* Remove o vapor */
+}
+
+
+.finalize-button.completed {
+  background-color: #007bff; /* Cor azul para "Compra Finalizada!" */
+}
+.finalize-button.completed::before {
+  height: 100%; /* Garante que o "café" esteja cheio */
+  background-color: #007bff; /* Faz a cor do "café" mudar para azul */
+  transition: background-color 0.3s ease; /* Transição de cor */
+}
+.finalize-button.completed .button-text::after {
+    content: none; /* Remove o vapor */
+}
+
+/* Garante que o texto esteja sempre visível e não seja afetado pelo 'café' */
+.finalize-button.loading .button-text,
+.finalize-button.finishing .button-text,
+.finalize-button.completed .button-text {
+  opacity: 1;
+}
