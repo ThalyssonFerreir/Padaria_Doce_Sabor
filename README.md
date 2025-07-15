@@ -17,7 +17,8 @@ O site é composto por diversas seções que mostram os serviços, produtos e va
 
 - **Início:** Página principal da nossa padaria.  
 - **Sobre:** Contando um pouco da nossa história.  
-- **Cardápio:** Lista de produtos como pães, doces, salgados e bolos.  
+- **Cardápio:** Lista de produtos como pães, doces, salgados e bolos.
+- **Carrinho:** Realiza a compra dos produtos selecionados.
 - **Kit Festas:** Opções de kits personalizados para eventos e comemorações.  
 - **Nossos Clientes:** Depoimentos de clientes satisfeitos.  
 - **Nossos Chefs:** Apresentação da equipe de confeiteiros e padeiros.  
@@ -33,10 +34,40 @@ Abaixo, a estrutura de arquivos modificada pela equipe durante o desenvolvimento
 
 ```powershell
 padaria-doce-sabor/
-├── assets/
-│   └── img/               # Imagens utilizadas no site
-├── index.html             # Página principal do site
-└── README.md              # Documentação do projeto
+├── Public/
+│   └── img/              
+│   └── vendor/ 
+├── src/
+│   └── assets/
+│       └── css/
+│           └── main.css/
+├── componentes/
+│   └── Chef.jsx/
+│   └── Footer.jsx/
+│   └── Gallery.jsx/
+│   └── Header.jsx/
+│   └── Historia.jsx/
+│   └── Inicio.jsx/
+│   └── Kits.jsx/
+│   └── Menu.jsx/
+│   └── Testimonial.jsx/
+│   └── TrabalheConosco.jsx/
+├── Context/
+│   └── CartContext.jsx/
+├── Pages/
+│   └── backToMenuBtn.css/
+│   └── Bebidas.jsx/
+│   └── Carrinho.jsx/
+│   └── Carrinho.Module.css/
+│   └── Doces.jsx/
+│   └── FinalizePurchaseButton.css/
+│   └── FinalizePurchaseButton.jsx/
+│   └── Paes.jsx/
+│   └── Produtos.jsx/
+│   └── Salgados.jsx/
+├── App.jsx
+├── index.html
+└── README.md            
 ```
 
 ---
@@ -45,17 +76,29 @@ padaria-doce-sabor/
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/Lucas-Teles/padaria-doce-sabor.git
+   git clone https://github.com/Lucas-Teles/Padaria_Doce_Sabor.git
    ```
+---
 2. Acesse o diretório do projeto:
    ```bash
-   padaria-doce-sabor
+   Padaria_Doce_Sabor
    ```
-3. Abra o arquivo `index.html` no navegador.
-
 ---
-
+3. Instale o node models.
+   ```bash
+   npm install
+   ```
+---
+4. Instale as rotas react dom
+   ```bash
+   npm install react-router-dom
+   ```
+5. Acesse o servidor local
+   ```bash
+   npm run dev
+   ```
 ## Acesse Online
+
 
 Você pode visualizar o projeto publicado acessando:  
 🔗 [Padaria Doce Sabor](https://lucas-teles.github.io/padaria-doce-sabor/)
