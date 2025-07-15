@@ -6,13 +6,6 @@ import styles from './Carrinho.module.css';
 
 import { useNavigate } from 'react-router-dom'; // Importe o useNavigate para navegação
 
-
-// IMPORTAR O COMPONENTE FinalizePurchaseButton
-
-// Ajuste o caminho conforme a localização real do seu arquivo FinalizePurchaseButton.jsx
-
-// Se estiver em src/pages/FinalizePurchaseButton.jsx (como na sua estrutura atual):
-
 import FinalizePurchaseButton from './FinalizePurchaseButton';
 
 
@@ -50,8 +43,6 @@ const Carrinho = () => {
   // Função para navegar de volta ao menu principal e rolar
 
   const handleGoToMenu = () => {
-
-    // console.log("Voltando ao cardápio..."); // Remova esta linha se não precisar mais do log
 
     navigate('/'); // Navega para a rota raiz (onde seu menu principal provavelmente está)
 
