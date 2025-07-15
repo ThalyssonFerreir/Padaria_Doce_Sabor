@@ -101,7 +101,7 @@ padaria-doce-sabor/
 
 
 Você pode visualizar o projeto publicado acessando:  
-🔗 [Padaria Doce Sabor](https://lucas-teles.github.io/padaria-doce-sabor/)
+🔗 [Padaria Doce Sabor](https://padaria-doce-sabor-chi.vercel.app/)
 
 ---
 
