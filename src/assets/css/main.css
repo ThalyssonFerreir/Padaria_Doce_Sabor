@@ -1740,6 +1740,7 @@ section,
   padding: 0 16px 16px 16px;
 }
 
+/* Botão do card de produto */
 .product-card-button {
   width: 100%;
   background-color: #d2691e;
@@ -1750,6 +1751,24 @@ section,
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
+  
+  /* Transições */
+  transition: background-color 0.3s ease, outline-offset 0.2s ease, outline-color 0.2s ease, transform 0.2s ease;
+  outline: 2px solid transparent; /* Borda invisível inicialmente */
+  outline-offset: 0px; /* Distância da borda invisível */
+}
+
+.product-card-button:hover {
+  background-color: #e07b2f;
+  transform: scale(1.01); /* Um leve aumento de escala para um toque extra */
+  outline-color: rgba(210, 105, 30, 0.5); /* Cor da borda que aparece (cor do botão com transparência) */
+  outline-offset: 4px; /* A borda "pula" para fora do botão */
+}
+
+.product-card-button:active {
+  background-color: #b85c19;
+  transform: scale(0.99); /* Diminui ligeiramente ao clicar */
+  outline-offset: 0px; /* Borda volta ao normal */
 }
 
 img{
@@ -1898,3 +1917,100 @@ img{
   background-color: #a04f16; /* Tom mais escuro ao passar o mouse */
   color: #fff;
 }
+
+/* FinalizePurchaseButton.css */
+.finalize-button {
+  width: 250px; /* Largura fixa para o botão */
+  height: 50px;
+  background-color: #d2691e; /* Cor inicial do botão */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  overflow: hidden; /* IMPORTANTE para que o pseudo-elemento fique dentro dos limites */
+  position: relative; /* Necessário para posicionar o pseudo-elemento */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 0; /* Garante que o botão tenha um z-index para o pseudo-elemento */
+}
+
+.finalize-button:hover:not(:disabled) {
+  background-color: #e07b2f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.finalize-button:active:not(:disabled) {
+  background-color: #b85c19;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.finalize-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  background-color: #d2691e;
+}
+
+.button-text {
+  position: relative;
+  z-index: 2; /* Garante que o texto fique acima do 'café' */
+  transition: opacity 0.3s ease;
+  white-space: nowrap; /* Evita que o texto quebre linha */
+}
+
+/* --- Estilos para a ANIMAÇÃO DE CAFÉ ENCHENDO --- */
+
+.finalize-button::before {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Começa da parte inferior do botão */
+  left: 0;
+  width: 100%;
+  height: 0%; /* Inicia com altura zero */
+  background-color: #6F4E37; /* Cor de café (um marrom mais escuro) */
+  transition: height 0s; /* Sem transição inicial */
+  z-index: 1; /* Fica entre o fundo do botão e o texto */
+  border-radius: 0 0 8px 8px; /* Mantém o border-radius inferior do botão */
+}
+
+/* Estado de 'loading': Aumenta a altura do pseudo-elemento */
+.finalize-button.loading::before {
+  height: 100%; /* Enche o botão completamente */
+  transition: height 2s linear; /* Animação de 2 segundos para encher */
+}
+
+/* Efeito de "vapor" ou "bolhas" (opcional, pode ser abstrato) */
+.finalize-button.loading .button-text::after {
+  content: '';
+  position: absolute;
+  top: -10px; /* Acima do texto */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 10px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+  animation: steam-effect 1s infinite ease-out alternate;
+  opacity: 0; /* Invisível inicialmente */
+  z-index: 3; /* Acima do texto */
+}
+
+@keyframes steam-effect {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-10px);
+    opacity: 0;
+  }
+}
+

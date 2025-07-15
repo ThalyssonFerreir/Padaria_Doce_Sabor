@@ -1,0 +1,33 @@
+.back-to-menu-btn {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--accent-color); 
+  border: 2px solid var(--accent-color); 
+  padding: 10px 20px;
+  margin: 20px 0 40px 0;
+  border-radius: 50px; 
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: var(--default-font);
+  font-size: 15px; 
+  white-space: nowrap; 
+}
+
+.back-to-menu-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  box-shadow: none;
+}
+
+.back-to-menu-btn.padaria-style { 
+  color: #8B4513; 
+  border-color: #8B4513;
+}
+
+.back-to-menu-btn.padaria-style:hover {
+  background-color: #8B4513; 
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
