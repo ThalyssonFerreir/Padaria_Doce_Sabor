@@ -1,0 +1,97 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.tela-login {
+  min-height: 100vh; /* ocupa 100% da altura da viewport */
+  width: 100%;
+  background-color: #e8ebe5;
+  display: flex;
+  
+
+  justify-content: center;
+  align-items: center;   
+  flex-direction: column;  
+}
+
+.tela-login .container-login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  gap: 2vh;
+}
+
+
+.tela-login .container-login .logo-login {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  transform: translateY(-55px);
+}
+
+
+.tela-login .container-login .logo-login img{
+  width: 200px;
+  height: 200px;
+
+  animation: flutuar 5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px); /* sobe um pouco */
+  }
+  100% {
+    transform: translateY(0); /* volta */
+  }
+}
+
+.tela-login .container-login h1{
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+  transform: translateY(-45px);
+}
+
+.tela-login .container-login .form-login{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2vh;
+  transform: translateY(-55px);
+}
+
+.input-login {
+  border: 1px solid #ccc;
+  outline: none; /* remove o contorno padrão do navegador */
+  padding: 10px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+  width: 30vh;
+}
+
+.input-login :focus {
+  border-color: #c00;
+}
+
+
+.button-login {
+  background-color: #d33;  
+  color: white;  
+  border: none;            
+  padding: 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50px;      
+  transition: background 0.3s ease;
+}
+
+.button-login :hover {
+  background-color: #b22;
+}
+

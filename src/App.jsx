@@ -1,3 +1,6 @@
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Cadvendedor from './pages/Cadvendedor';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from "react";
 import AOS from "aos";
@@ -47,24 +50,32 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+      <Routes>
+        {/* Páginas de autenticação */}
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/cadvendedor" element={<Cadvendedor />} />   
 
-          {/* ROTAS PARA AS PÁGINAS SEPARADAS */}
-          <Route path="/paes" element={<Paes />} />
-          <Route path="/salgados" element={<Salgados />} />
-          <Route path="/doces" element={<Doces />} />
-          <Route path="/bebidas" element={<Bebidas />} />
-          <Route path="/carrinho" element={<Carrinho />} />
-
-          {/* ROTA ADICIONADA: A rota para a página de produtos */}
-          <Route path="/produtos" element={<Produtos />} />
-
-        </Routes>
-      </main>
-      <Footer />
+        {/* Páginas normais (com header/footer) */}
+        <Route
+          path="/*"
+          element={
+            <>
+              <Header />
+              <Routes>
+                <Route path="/homepage" element={<HomePage />} />
+                <Route path="/paes" element={<><Paes /></>} />
+                <Route path="/salgados" element={<Salgados />} />
+                <Route path="/doces" element={<Doces />} />
+                <Route path="/bebidas" element={<Bebidas />} />
+                <Route path="/carrinho" element={<Carrinho />} />
+                <Route path="/produtos" element={<Produtos />} />
+              </Routes>
+              <Footer />
+            </>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

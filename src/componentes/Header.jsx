@@ -29,8 +29,8 @@ function Header() {
   return (
     <header id="header" className="header d-flex align-items-center sticky-top">
       <div className="container position-relative d-flex align-items-center justify-content-between">
-        <a href="#inicio" className="logo d-flex align-items-center me-auto me-xl-0">
-          <h1 className="sitename"><img class="logoSite" src="/assets/img/imgsPadaria/PadariaLogo.webp"></img></h1>
+        <a href="HomePage" className="logo d-flex align-items-center me-auto me-xl-0">
+          <h1 className="sitename"><img src="/assets/img/imgsPadaria/PadariaLogo.webp"></img></h1>
         </a>
 
         {/* O logo agora também usa a função de scroll para garantir que vá para o topo */}
