@@ -63,11 +63,14 @@ export default function Login() {
             onChange={(e) => setSenha(e.target.value)}
             required
           />
-        </form>
 
-          <button type="submit" className="button-login">
+          <button type="submit" className="button-login-form">
             Entrar
           </button>
+
+        </form>
+
+
 
         {mensagem &&
          <p className="mensagem">
@@ -75,7 +78,7 @@ export default function Login() {
          </p>}
 
         <button onClick={() => navigate("/register")} className="button-login">
-          Realizar o cadastro
+          Realizar Cadastro
         </button>
 
       </div>

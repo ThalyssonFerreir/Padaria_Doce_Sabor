@@ -13,7 +13,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3000/cadastro", {
+      const res = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome, email, senha }),
@@ -37,18 +37,19 @@ export default function Register() {
   };
 
   return (
-    <div className="tela">
+    <div className="tela-register">
 
-      <div className="container">
+      <div className="container-register">
 
-        <div className="logo">
+        <div className="logo-register">
           <img src="/assets/img/imgsPadaria/PadariaLogo.webp"></img>
         </div>
         
         <h1>Cadastrar como cliente!</h1>
 
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="form-register">
           <input
+            className="input-register"
             type="text"
             placeholder="Nome"
             value={nome}
@@ -56,6 +57,7 @@ export default function Register() {
             required
           />
           <input
+            className="input-register"
             type="email"
             placeholder="Email"
             value={email}
@@ -63,6 +65,7 @@ export default function Register() {
             required
           />
           <input
+            className="input-register"
             type="password"
             placeholder="Senha"
             value={senha}
@@ -70,12 +73,12 @@ export default function Register() {
             required
           />
 
+          <button type="submit" className="button-register-form">
+            Concluir cadastro!
+          </button>
 
         </form>
 
-          <button type="submit">
-            Concluir cadastro!
-          </button>
 
         {mensagem &&
           <p className="mensagem">
@@ -83,11 +86,11 @@ export default function Register() {
           </p>}
 
 
-        <button onClick={() => navigate("/")}>
+        <button onClick={() => navigate("/")} className="button-register">
           Fazer o login
         </button>
 
-        <button className="Cad-vendedor" onClick={() => navigate("/cadVendedor")}>
+        <button className="button-cad-vendedor-em-register" onClick={() => navigate("/cadVendedor")}>
           Cadastrar como vendedor!
         </button>         
       </div>

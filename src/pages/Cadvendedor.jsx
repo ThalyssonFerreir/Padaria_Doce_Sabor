@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../assets/css/Cadvendedor.css";
+import "../assets/css/cadvendedor.css";
 
 export default function Cadvendedor() {
   const [nome, setNome] = useState("");
@@ -37,18 +37,19 @@ export default function Cadvendedor() {
   };
 
   return (
-    <div className="tela">
+    <div className="tela-cad-vendedor">
 
-      <div className="container">
+      <div className="container-cad-vendedor">
 
-        <div className="logo">
+        <div className="logo-cad-vendedor">
           <img src="/assets/img/imgsPadaria/PadariaLogo.webp"></img>
         </div>
         
-        <h1>Cadastro de Vendedor</h1>
+        <h1>Cadastrar como Vendedor!</h1>
 
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="form-cad-vendedor">
           <input
+            className="input-cad-vendedor"
             type="text"
             placeholder="Nome"
             value={nome}
@@ -56,6 +57,7 @@ export default function Cadvendedor() {
             required
           />
           <input
+            className="input-cad-vendedor"
             type="email"
             placeholder="Email"
             value={email}
@@ -63,6 +65,7 @@ export default function Cadvendedor() {
             required
           />
           <input
+            className="input-cad-vendedor"
             type="password"
             placeholder="Senha"
             value={senha}
@@ -70,12 +73,12 @@ export default function Cadvendedor() {
             required
           />
 
-
-        </form>
-
-          <button type="submit">
+          <button type="submit" className="button-cad-vendedor">
             Concluir cadastro!
           </button>
+          
+        </form>
+
 
         {mensagem &&
           <p className="mensagem">
@@ -83,7 +86,7 @@ export default function Cadvendedor() {
           </p>}
 
 
-        <button onClick={() => navigate("/")}>
+        <button onClick={() => navigate("/")} className="button-cad-vendedor">
           Fazer o login
         </button>
        
