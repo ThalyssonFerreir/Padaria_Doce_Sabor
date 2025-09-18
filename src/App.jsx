@@ -1,7 +1,7 @@
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cadvendedor from './pages/Cadvendedor';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -26,35 +26,55 @@ import Paes from './pages/Paes';
 import Salgados from './pages/Salgados';
 import Doces from './pages/Doces';
 import Bebidas from './pages/Bebidas';
-import Produtos from './pages/Produtos'; // A página que queremos rotear
+import Produtos from './pages/Produtos';
 import Carrinho from './pages/Carrinho';
+import PerfilVendedor from './pages/PerfilVendedor';
+
 
 const HomePage = () => (
-  <>
-    <Inicio />
-    <Historia />
-    <Menu />
-    {/* O componente <Produtos /> foi REMOVIDO daqui */}
-    <Testimonials />
-    <Kits />
-    <Chefs />
-    <Gallery />
-    <TrabalheConosco />
-  </>
+  <>
+    <Inicio />
+    <Historia />
+    <Menu />
+    <Testimonials />
+    <Kits />
+    <Chefs />
+    <Gallery />
+    <TrabalheConosco />
+  </>
 );
 
-function App() {
+// Criamos um componente interno para poder usar o hook 'useLocation'
+function AppContent() {
+  const location = useLocation();
+  // Verifica se a URL atual começa com /perfil-vendedor
+  // const isDashboardPage = location.pathname.startsWith('/perfil-vendedor');
+
+  // Efeito para a biblioteca de animação AOS
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-  }, []);
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  // Efeito para adicionar uma classe ao body na página do dashboard
+  // useEffect(() => {
+  //   if (isDashboardPage) {
+  //     document.body.classList.add('dashboard-active');
+  //   } else {
+  //     document.body.classList.remove('dashboard-active');
+  //   }
+  //   // Limpa a classe quando o componente é desmontado
+  //   return () => {
+  //     document.body.classList.remove('dashboard-active');
+  //   };
+  // }, [isDashboardPage]);
 
   return (
-    <Router>
+    <>
       <Routes>
         {/* Páginas de autenticação */}
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/cadvendedor" element={<Cadvendedor />} />   
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cadvendedor" element={<Cadvendedor />} />
 
         {/* Páginas normais (com header/footer) */}
         <Route
@@ -70,14 +90,27 @@ function App() {
                 <Route path="/bebidas" element={<Bebidas />} />
                 <Route path="/carrinho" element={<Carrinho />} />
                 <Route path="/produtos" element={<Produtos />} />
+
+                {/* ROTA DO PAINEL */}
+                <Route path="/perfil-vendedor" element={<PerfilVendedor />} />
               </Routes>
               <Footer />
             </>
           }
         />
       </Routes>
-    </Router>
+    </>
   );
+}
+
+
+// O componente App principal agora só envolve o AppContent com o Router
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
 }
 
 export default App;
