@@ -1,13 +1,9 @@
-import React, { useState } from 'react'; // useEffect não é mais necessário para o filtro
+import React, { useState, useEffect } from 'react';
 
 const produtosDeExemplo = [
-    { id: 1, imagemUrl: '/assets/img/imgsPadaria/pao1.png', nome: 'Pão 1', ID: '1', preco: 0.75, quantidade: 150, situacao: 'Em estoque' },
-    { id: 2, imagemUrl: '/assets/img/imgsPadaria/pao2.png', nome: 'Pão 2', ID: '2', preco: 1.50, quantidade: 45, situacao: 'Em estoque' },
-    { id: 3, imagemUrl: '/assets/img/imgsPadaria/pao3.png', nome: 'Pão 3', ID: '3', preco: 2.00, quantidade: 8, situacao: 'Estoque baixo' },
-    { id: 4, imagemUrl: '/assets/img/imgsPadaria/salgado1.png', nome: 'Salgado 1', ID: '4', preco: 6.00, quantidade: 0, situacao: 'Sem estoque' },
-    { id: 5, imagemUrl: '/assets/img/imgsPadaria/salgado2.png', nome: 'Salgado 2', ID: '5', preco: 12.00, quantidade: 12, situacao: 'Estoque baixo' },
-    { id: 6, imagemUrl: '/assets/img/imgsPadaria/salgado3.png', nome: 'Salgado 3', ID: '6', preco: 7.50, quantidade: 994, situacao: 'Em estoque' },
-    { id: 7, imagemUrl: '/assets/img/imgsPadaria/salgado4.png', nome: 'Salgado 4', ID: '7', preco: 7.50, quantidade: 1000, situacao: 'Em estoque' },
+    { id: 1, imagemUrl: '/assets/img/imgsPadaria/pao1.png', nome: 'Pão Francês', ID: '1', tipo: 'Pães', preco: 0.75, quantidade: 150, situacao: 'Em estoque' },
+    { id: 2, imagemUrl: '/assets/img/imgsPadaria/pao2.png', nome: 'Pão Doce', ID: '2', tipo: 'Doces', preco: 1.50, quantidade: 45, situacao: 'Em estoque' },
+    { id: 3, imagemUrl: '/assets/img/imgsPadaria/pao3.png', nome: 'Pão de Queijo', ID: '3', tipo: 'Salgados', preco: 2.00, quantidade: 8, situacao: 'Estoque baixo' },
 ];
 
 const getQuantidadePill = (quantidade) => {
@@ -24,34 +20,51 @@ const getStatusClass = (situacao) => {
     return '';
 }
 
+// Função para normalizar texto (remove acentos e converte para minúsculas)
+const normalizeText = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+};
+
+
 function ListaProdutos({ onNavigateToForm }) {
-    // Estado para os valores dos inputs (o que o usuário digita)
-    const [filtros, setFiltros] = useState({ produto: '', id: '', preco: '', situacao: '' });
+    const [produtos, setProdutos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [filtros, setFiltros] = useState({ produto: '', id: '', tipo: '', preco: '', situacao: '' });
+    const [produtosFiltrados, setProdutosFiltrados] = useState([]);
 
-    // Estado para a lista de produtos que realmente aparece na tela
-    const [produtosFiltrados, setProdutosFiltrados] = useState(produtosDeExemplo);
+    useEffect(() => {
+        setProdutos(produtosDeExemplo);
+        setProdutosFiltrados(produtosDeExemplo);
+        setLoading(false);
+    }, []);
 
-    // Função para atualizar o estado dos filtros conforme o usuário digita
     const handleFiltroChange = (e) => {
         const { name, value } = e.target;
-        setFiltros(prevFiltros => ({
-            ...prevFiltros,
-            [name]: value
-        }));
+        setFiltros(prev => ({ ...prev, [name]: value }));
     };
 
-    // O useEffect FOI REMOVIDO. A lógica de filtro agora está aqui:
     const handleAplicarFiltros = (e) => {
-        e.preventDefault(); // Impede o recarregamento da página
+        e.preventDefault();
+        let produtosData = [...produtos];
+        
+        // Normaliza os valores de texto dos filtros uma vez
+        const filtroProdutoNormalizado = normalizeText(filtros.produto);
+        const filtroTipoNormalizado = normalizeText(filtros.tipo);
 
-        let produtosData = [...produtosDeExemplo];
-
-        // Aplica cada filtro um por um
+        // Lógica de filtro ATUALIZADA para usar a normalização
         if (filtros.produto) {
-            produtosData = produtosData.filter(p => p.nome.toLowerCase().includes(filtros.produto.toLowerCase()));
+            produtosData = produtosData.filter(p => normalizeText(p.nome).includes(filtroProdutoNormalizado));
         }
         if (filtros.id) {
-            produtosData = produtosData.filter(p => p.ID.toString().includes(filtros.id.toString()));
+            produtosData = produtosData.filter(p => p.ID.toString().includes(filtros.id));
+        }
+        if (filtros.tipo) {
+            produtosData = produtosData.filter(p => normalizeText(p.tipo).includes(filtroTipoNormalizado));
         }
         if (filtros.preco) {
             produtosData = produtosData.filter(p => p.preco >= parseFloat(filtros.preco));
@@ -59,10 +72,11 @@ function ListaProdutos({ onNavigateToForm }) {
         if (filtros.situacao) {
             produtosData = produtosData.filter(p => p.situacao === filtros.situacao);
         }
-
-        // Atualiza a lista que é exibida na tela com os resultados do filtro
         setProdutosFiltrados(produtosData);
     };
+
+    if (loading) return <div className="painel-placeholder"><h2>Carregando produtos...</h2></div>;
+    if (error) return <div className="painel-placeholder"><h2>Erro ao carregar produtos: {error}</h2></div>;
 
     return (
         <>
@@ -71,6 +85,7 @@ function ListaProdutos({ onNavigateToForm }) {
                     <h2 className="painel-titulo">Produtos</h2>
                     <nav className="breadcrumbs"><a href="#">Principal</a><span>&gt;</span><span>Produtos</span></nav>
                 </div>
+                {/* Botão da lixeira removido daqui */}
                 <div className="acoes-header">
                     <button className="btn-painel btn-adicionar" onClick={onNavigateToForm}><i className="bi bi-plus-lg"></i> Adicionar</button>
                 </div>
@@ -85,6 +100,7 @@ function ListaProdutos({ onNavigateToForm }) {
                                     <th><input type="checkbox" /></th>
                                     <th>Produto</th>
                                     <th>ID <i className="bi bi-caret-down-fill"></i></th>
+                                    <th>Tipo <i className="bi bi-caret-down-fill"></i></th>
                                     <th>Preço</th>
                                     <th>Quantidade</th>
                                     <th>Situação</th>
@@ -102,6 +118,7 @@ function ListaProdutos({ onNavigateToForm }) {
                                             </div>
                                         </td>
                                         <td>{produto.ID}</td>
+                                        <td>{produto.tipo}</td>
                                         <td>R$ {produto.preco.toFixed(2).replace('.', ',')}</td>
                                         <td>{getQuantidadePill(produto.quantidade)}</td>
                                         <td>
@@ -127,6 +144,10 @@ function ListaProdutos({ onNavigateToForm }) {
                             <div className="filtro-grupo">
                                 <label htmlFor="filtro-ID">ID</label>
                                 <input name="id" value={filtros.id} onChange={handleFiltroChange} type="text" id="filtro-ID" placeholder="ID ou SKU" />
+                            </div>
+                            <div className="filtro-grupo">
+                                <label htmlFor="filtro-tipo">Tipo</label>
+                                <input name="tipo" value={filtros.tipo} onChange={handleFiltroChange} type="text" id="filtro-tipo" placeholder="Tipo do produto" />
                             </div>
                             <div className="filtro-grupo">
                                 <label htmlFor="filtro-preco">Preço a partir de</label>

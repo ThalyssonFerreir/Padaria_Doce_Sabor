@@ -91,13 +91,14 @@ function AppContent() {
                 <Route path="/carrinho" element={<Carrinho />} />
                 <Route path="/produtos" element={<Produtos />} />
 
-                {/* ROTA DO PAINEL */}
-                <Route path="/perfil-vendedor" element={<PerfilVendedor />} />
               </Routes>
               <Footer />
             </>
           }
         />
+
+        {/* ROTA DO PAINEL */}
+        <Route path="/perfil-vendedor" element={<PerfilVendedor />} />
       </Routes>
     </>
   );

@@ -3,6 +3,22 @@ import '../assets/css/main.css';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom'; // Importe o useNavigate
 
+
+async function cadastrarProdutoNaAPI(paes) {
+  const response = await fetch('http://localhost:3000/paes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(paes),
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao cadastrar paes na API');
+  }
+
+  return await response.json();
+}
+/*======================================================*/
+
 function Paes() {
   const navigate = useNavigate(); // Hook para navegação
   const { addToCart } = useCart();
