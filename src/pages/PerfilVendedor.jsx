@@ -39,11 +39,6 @@ function PerfilVendedor() {
         }
     };
 
-    const handleMenuNavigation = (newView) => {
-        setView(newView);
-        setIsProfileMenuOpen(false);
-    };
-
     const renderView = () => {
         switch (view) {
             case 'produtos':
@@ -52,10 +47,8 @@ function PerfilVendedor() {
                 return <FormularioProduto onCancel={() => setView('produtos')} />;
             case 'pedidos':
                 return <PlaceholderView title="Pedidos" />;
-            case 'meu-perfil':
-                return <PlaceholderView title="Meu Perfil" />;
             default:
-                return <ListaProdutos onNavigateToForm={() => setView('cadastrar')} />;
+                return <PlaceholderView title="Página não encontrada" />;
         }
     };
 
@@ -95,7 +88,7 @@ function PerfilVendedor() {
                                 <span>Vendedor</span>
                                 <i className={`bi bi-caret-down-fill ${isProfileMenuOpen ? 'open' : ''}`}></i>
                             </button>
-                            
+
                             <input
                                 type="file"
                                 ref={fileInputRef}
@@ -106,7 +99,6 @@ function PerfilVendedor() {
 
                             {isProfileMenuOpen && (
                                 <ul className="profile-dropdown-menu">
-                                    <li><button onClick={() => handleMenuNavigation('meu-perfil')}><i className="bi bi-person-circle"></i> Meu Perfil</button></li>
                                     <li><button onClick={handleTrocarFotoClick}><i className="bi bi-image"></i> Trocar Foto</button></li>
                                     <li className="divider"></li>
                                     <li><Link to="/" onClick={() => setIsProfileMenuOpen(false)}><i className="bi bi-box-arrow-right"></i> Sair</Link></li>

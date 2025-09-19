@@ -2736,3 +2736,114 @@ button.user-menu .bi-caret-down-fill.open {
   background-color: #eee;
   margin: 8px 0;
 }
+
+.tela-cadastro-vendedor {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.tela-cadastro-vendedor .container-cadastro {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 25px;
+}
+
+.tela-cadastro-vendedor .logo-cadastro img {
+    width: 150px;
+    height: auto;
+    animation: flutuar-logo-cadastro 5s ease-in-out infinite;
+}
+
+@keyframes flutuar-logo-cadastro {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.tela-cadastro-vendedor h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.tela-cadastro-vendedor .form-cadastro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tela-cadastro-vendedor .input-cadastro {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.tela-cadastro-vendedor .input-cadastro:focus {
+    outline: none;
+    border-color: #d33;
+}
+
+.tela-cadastro-vendedor .btn-concluir,
+.tela-cadastro-vendedor .btn-fazer-login {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.tela-cadastro-vendedor .btn-concluir {
+    background-color: #d33;
+    color: white;
+    border: none;
+}
+
+.tela-cadastro-vendedor .btn-concluir:hover {
+    background-color: #b22;
+}
+
+.tela-cadastro-vendedor .btn-fazer-login {
+    background-color: transparent;
+    color: #d33;
+    border: 2px solid #d33;
+}
+
+.tela-cadastro-vendedor .btn-fazer-login:hover {
+    background-color: #d33;
+    color: white;
+}
+
+@media (max-width: 480px) {
+    .tela-cadastro-vendedor .container-cadastro {
+        padding: 25px;
+    }
+
+    .tela-cadastro-vendedor h1 {
+        font-size: 1.8rem;
+    }
+
+    .tela-cadastro-vendedor .logo-cadastro img {
+        width: 120px;
+    }
+}

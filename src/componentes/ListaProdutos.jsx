@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+// Lista de produtos combinada: a maior lista, com o campo "tipo" adicionado.
 const produtosDeExemplo = [
     { id: 1, imagemUrl: '/assets/img/imgsPadaria/pao1.png', nome: 'Pão Francês', ID: '1', tipo: 'Pães', preco: 0.75, quantidade: 150, situacao: 'Em estoque' },
     { id: 2, imagemUrl: '/assets/img/imgsPadaria/pao2.png', nome: 'Pão Doce', ID: '2', tipo: 'Doces', preco: 1.50, quantidade: 45, situacao: 'Em estoque' },
     { id: 3, imagemUrl: '/assets/img/imgsPadaria/pao3.png', nome: 'Pão de Queijo', ID: '3', tipo: 'Salgados', preco: 2.00, quantidade: 8, situacao: 'Estoque baixo' },
+    { id: 4, imagemUrl: '/assets/img/imgsPadaria/salgado1.png', nome: 'Coxinha', ID: '4', tipo: 'Salgados', preco: 6.00, quantidade: 0, situacao: 'Sem estoque' },
+    { id: 5, imagemUrl: '/assets/img/imgsPadaria/salgado2.png', nome: 'Esfiha', ID: '5', tipo: 'Salgados', preco: 12.00, quantidade: 12, situacao: 'Estoque baixo' },
+    { id: 6, imagemUrl: '/assets/img/imgsPadaria/salgado3.png', nome: 'Bolo de Chocolate', ID: '6', tipo: 'Doces', preco: 7.50, quantidade: 994, situacao: 'Em estoque' },
+    { id: 7, imagemUrl: '/assets/img/imgsPadaria/salgado4.png', nome: 'Refrigerante', ID: '7', tipo: 'Bebidas', preco: 7.50, quantidade: 1000, situacao: 'Em estoque' },
 ];
 
 const getQuantidadePill = (quantidade) => {
@@ -20,7 +25,6 @@ const getStatusClass = (situacao) => {
     return '';
 }
 
-// Função para normalizar texto (remove acentos e converte para minúsculas)
 const normalizeText = (text) => {
     return text
         .toString()
@@ -28,7 +32,6 @@ const normalizeText = (text) => {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 };
-
 
 function ListaProdutos({ onNavigateToForm }) {
     const [produtos, setProdutos] = useState([]);
@@ -52,11 +55,9 @@ function ListaProdutos({ onNavigateToForm }) {
         e.preventDefault();
         let produtosData = [...produtos];
         
-        // Normaliza os valores de texto dos filtros uma vez
         const filtroProdutoNormalizado = normalizeText(filtros.produto);
         const filtroTipoNormalizado = normalizeText(filtros.tipo);
 
-        // Lógica de filtro ATUALIZADA para usar a normalização
         if (filtros.produto) {
             produtosData = produtosData.filter(p => normalizeText(p.nome).includes(filtroProdutoNormalizado));
         }
@@ -85,7 +86,6 @@ function ListaProdutos({ onNavigateToForm }) {
                     <h2 className="painel-titulo">Produtos</h2>
                     <nav className="breadcrumbs"><a href="#">Principal</a><span>&gt;</span><span>Produtos</span></nav>
                 </div>
-                {/* Botão da lixeira removido daqui */}
                 <div className="acoes-header">
                     <button className="btn-painel btn-adicionar" onClick={onNavigateToForm}><i className="bi bi-plus-lg"></i> Adicionar</button>
                 </div>
