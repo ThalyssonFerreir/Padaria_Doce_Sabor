@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------
-# Estilo do Formulário de Cadastro de Produto (Versão Simplificada)
+# Estilo do Formulário de Cadastro de Produto com Imagem
 --------------------------------------------------------------*/
-.form-container {
+.form-container-com-imagem {
   background-color: #fff;
   border: 1px solid #dee2e6;
   border-radius: 8px;
@@ -18,26 +18,81 @@
   margin-bottom: 5px;
 }
 
-/* O corpo do formulário */
-.tab-content {
+.form-body {
   padding: 30px;
 }
 
-/* O grid para alinhar os campos */
-.form-grid-simplified {
+/* Layout principal do formulário (imagem e campos) */
+.form-layout-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px; /* Espaço entre os campos */
+  grid-template-columns: 250px 1fr; /* Coluna para imagem, e o resto para os campos */
+  gap: 40px;
 }
 
-/* Faz o campo "Nome do produto" ocupar 2 colunas */
-.form-grid-simplified .field-span-2 {
-  grid-column: span 2;
-}
-
-.form-field {
+/* Área de Upload da Imagem */
+.image-upload-field {
   display: flex;
   flex-direction: column;
+}
+
+.image-upload-box {
+  width: 100%;
+  padding-top: 100%; /* Cria um quadrado perfeito (aspect-ratio 1:1) */
+  border: 2px dashed #ced4da;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.image-upload-box:hover {
+  border-color: #d2691e;
+  background-color: #fff;
+}
+
+.image-upload-box .upload-placeholder,
+.image-upload-box .image-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.image-upload-box .upload-placeholder i {
+  font-size: 3rem;
+  color: #adb5bd;
+}
+
+.image-upload-box .upload-placeholder span {
+  margin-top: 10px;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Grid para os campos de texto e inputs */
+.form-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.field-span-2 {
+  grid-column: span 2;
 }
 
 .form-field label {
@@ -71,7 +126,45 @@
   gap: 10px;
   padding: 20px 30px;
   border-top: 1px solid #eee;
-  background-color: #f8f9fa; /* Fundo sutil para a área de botões */
+  background-color: #f8f9fa;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+/*--------------------------------------------------------------
+# Responsividade do Formulário de Cadastro
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+  
+  /* Layout principal vira coluna única */
+  .form-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  /* Caixa de imagem fica menor e retangular */
+  .image-upload-box {
+    padding-top: 0; /* Remove o aspect ratio quadrado */
+    height: 200px; /* Define uma altura fixa */
+  }
+
+  /* Campos de texto viram coluna única */
+  .form-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .field-span-2 {
+    grid-column: span 1; /* Reseta a expansão de coluna */
+  }
+
+  .form-body {
+    padding: 20px;
+  }
+
+  /* Botões ficam empilhados e ocupam a largura toda */
+  .form-actions {
+    flex-direction: column-reverse; /* "Cadastrar" aparece primeiro */
+    gap: 15px;
+  }
 }

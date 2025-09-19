@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-// Lista de produtos combinada: a maior lista, com o campo "tipo" adicionado.
 const produtosDeExemplo = [
     { id: 1, imagemUrl: '/assets/img/imgsPadaria/pao1.png', nome: 'Pão Francês', ID: '1', tipo: 'Pães', preco: 0.75, quantidade: 150, situacao: 'Em estoque' },
     { id: 2, imagemUrl: '/assets/img/imgsPadaria/pao2.png', nome: 'Pão Doce', ID: '2', tipo: 'Doces', preco: 1.50, quantidade: 45, situacao: 'Em estoque' },
     { id: 3, imagemUrl: '/assets/img/imgsPadaria/pao3.png', nome: 'Pão de Queijo', ID: '3', tipo: 'Salgados', preco: 2.00, quantidade: 8, situacao: 'Estoque baixo' },
-    { id: 4, imagemUrl: '/assets/img/imgsPadaria/salgado1.png', nome: 'Coxinha', ID: '4', tipo: 'Salgados', preco: 6.00, quantidade: 0, situacao: 'Sem estoque' },
-    { id: 5, imagemUrl: '/assets/img/imgsPadaria/salgado2.png', nome: 'Esfiha', ID: '5', tipo: 'Salgados', preco: 12.00, quantidade: 12, situacao: 'Estoque baixo' },
-    { id: 6, imagemUrl: '/assets/img/imgsPadaria/salgado3.png', nome: 'Bolo de Chocolate', ID: '6', tipo: 'Doces', preco: 7.50, quantidade: 994, situacao: 'Em estoque' },
-    { id: 7, imagemUrl: '/assets/img/imgsPadaria/salgado4.png', nome: 'Refrigerante', ID: '7', tipo: 'Bebidas', preco: 7.50, quantidade: 1000, situacao: 'Em estoque' },
 ];
 
 const getQuantidadePill = (quantidade) => {
@@ -23,17 +18,13 @@ const getStatusClass = (situacao) => {
     if (situacao === 'Estoque baixo') return 'status-estoque-baixo';
     if (situacao === 'Sem estoque') return 'status-desabilitado';
     return '';
-}
-
-const normalizeText = (text) => {
-    return text
-        .toString()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
 };
 
-function ListaProdutos({ onNavigateToForm }) {
+const normalizeText = (text) => {
+    return text.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
+function ListaProdutos({ onNavigateToForm, isFilterPanelOpen, onCloseFilters }) {
     const [produtos, setProdutos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -54,7 +45,6 @@ function ListaProdutos({ onNavigateToForm }) {
     const handleAplicarFiltros = (e) => {
         e.preventDefault();
         let produtosData = [...produtos];
-        
         const filtroProdutoNormalizado = normalizeText(filtros.produto);
         const filtroTipoNormalizado = normalizeText(filtros.tipo);
 
@@ -74,10 +64,42 @@ function ListaProdutos({ onNavigateToForm }) {
             produtosData = produtosData.filter(p => p.situacao === filtros.situacao);
         }
         setProdutosFiltrados(produtosData);
+        onCloseFilters(); // Fecha o painel de filtros mobile após aplicar
     };
 
     if (loading) return <div className="painel-placeholder"><h2>Carregando produtos...</h2></div>;
     if (error) return <div className="painel-placeholder"><h2>Erro ao carregar produtos: {error}</h2></div>;
+
+    const FiltrosForm = () => (
+        <form className="form-filtros" onSubmit={handleAplicarFiltros}>
+            <div className="filtro-grupo">
+                <label htmlFor="filtro-produto">Produto</label>
+                <input name="produto" value={filtros.produto} onChange={handleFiltroChange} type="text" id="filtro-produto" placeholder="Nome do produto" />
+            </div>
+            <div className="filtro-grupo">
+                <label htmlFor="filtro-ID">ID</label>
+                <input name="id" value={filtros.id} onChange={handleFiltroChange} type="text" id="filtro-ID" placeholder="ID ou SKU" />
+            </div>
+            <div className="filtro-grupo">
+                <label htmlFor="filtro-tipo">Tipo</label>
+                <input name="tipo" value={filtros.tipo} onChange={handleFiltroChange} type="text" id="filtro-tipo" placeholder="Tipo do produto" />
+            </div>
+            <div className="filtro-grupo">
+                <label htmlFor="filtro-preco">Preço a partir de</label>
+                <input name="preco" value={filtros.preco} onChange={handleFiltroChange} type="number" id="filtro-preco" placeholder="Valor" />
+            </div>
+            <div className="filtro-grupo">
+                <label htmlFor="filtro-situacao">Situação</label>
+                <select name="situacao" value={filtros.situacao} onChange={handleFiltroChange} id="filtro-situacao">
+                    <option value="">Todas</option>
+                    <option value="Em estoque">Em estoque</option>
+                    <option value="Estoque baixo">Estoque baixo</option>
+                    <option value="Sem estoque">Sem estoque</option>
+                </select>
+            </div>
+            <button type="submit" className="btn-painel btn-filtrar">Filtrar</button>
+        </form>
+    );
 
     return (
         <>
@@ -90,6 +112,7 @@ function ListaProdutos({ onNavigateToForm }) {
                     <button className="btn-painel btn-adicionar" onClick={onNavigateToForm}><i className="bi bi-plus-lg"></i> Adicionar</button>
                 </div>
             </div>
+            
             <div className="painel-corpo">
                 <div className="content-card tabela-container">
                     <div className="content-card-header"><h4><i className="bi bi-list-ul"></i> Listando produtos ({produtosFiltrados.length})</h4></div>
@@ -99,8 +122,8 @@ function ListaProdutos({ onNavigateToForm }) {
                                 <tr>
                                     <th><input type="checkbox" /></th>
                                     <th>Produto</th>
-                                    <th>ID <i className="bi bi-caret-down-fill"></i></th>
-                                    <th>Tipo <i className="bi bi-caret-down-fill"></i></th>
+                                    <th>ID</th>
+                                    <th>Tipo</th>
                                     <th>Preço</th>
                                     <th>Quantidade</th>
                                     <th>Situação</th>
@@ -133,39 +156,26 @@ function ListaProdutos({ onNavigateToForm }) {
                         </table>
                     </div>
                 </div>
-                <aside className="content-card filtros-sidebar">
+                
+                <aside className="content-card filtros-sidebar desktop-only">
                     <div className="content-card-header"><h4><i className="bi bi-funnel-fill"></i> Filtros</h4></div>
                     <div className="content-card-body">
-                        <form className="form-filtros" onSubmit={handleAplicarFiltros}>
-                            <div className="filtro-grupo">
-                                <label htmlFor="filtro-produto">Produto</label>
-                                <input name="produto" value={filtros.produto} onChange={handleFiltroChange} type="text" id="filtro-produto" placeholder="Nome do produto" />
-                            </div>
-                            <div className="filtro-grupo">
-                                <label htmlFor="filtro-ID">ID</label>
-                                <input name="id" value={filtros.id} onChange={handleFiltroChange} type="text" id="filtro-ID" placeholder="ID ou SKU" />
-                            </div>
-                            <div className="filtro-grupo">
-                                <label htmlFor="filtro-tipo">Tipo</label>
-                                <input name="tipo" value={filtros.tipo} onChange={handleFiltroChange} type="text" id="filtro-tipo" placeholder="Tipo do produto" />
-                            </div>
-                            <div className="filtro-grupo">
-                                <label htmlFor="filtro-preco">Preço a partir de</label>
-                                <input name="preco" value={filtros.preco} onChange={handleFiltroChange} type="number" id="filtro-preco" placeholder="Valor" />
-                            </div>
-                            <div className="filtro-grupo">
-                                <label htmlFor="filtro-situacao">Situação</label>
-                                <select name="situacao" value={filtros.situacao} onChange={handleFiltroChange} id="filtro-situacao">
-                                    <option value="">Todas</option>
-                                    <option value="Em estoque">Em estoque</option>
-                                    <option value="Estoque baixo">Estoque baixo</option>
-                                    <option value="Sem estoque">Sem estoque</option>
-                                </select>
-                            </div>
-                            <button type="submit" className="btn-painel btn-filtrar">Filtrar</button>
-                        </form>
+                        <FiltrosForm />
                     </div>
                 </aside>
+            </div>
+
+            <div className={`filtros-mobile-wrapper ${isFilterPanelOpen ? 'is-open' : ''}`}>
+                <div className="filtros-overlay" onClick={onCloseFilters}></div>
+                <div className="filtros-mobile-panel">
+                    <div className="filtros-mobile-header">
+                        <h4>Filtros</h4>
+                        <button onClick={onCloseFilters} className="btn-close-filters"><i className="bi bi-x-lg"></i></button>
+                    </div>
+                    <div className="filtros-mobile-body">
+                         <FiltrosForm />
+                    </div>
+                </div>
             </div>
         </>
     );

@@ -16,6 +16,8 @@ function PerfilVendedor() {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const fileInputRef = useRef(null);
     const [avatarSrc, setAvatarSrc] = useState('/assets/img/foto/foto.png');
+    const [productUpdateKey, setProductUpdateKey] = useState(0);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -39,12 +41,22 @@ function PerfilVendedor() {
         }
     };
 
+    const handleProductSaved = () => {
+        setProductUpdateKey(prevKey => prevKey + 1);
+        setView('produtos');
+    };
+
+    const navigateView = (newView) => {
+        setView(newView);
+        setIsSidebarOpen(false);
+    };
+
     const renderView = () => {
         switch (view) {
             case 'produtos':
-                return <ListaProdutos onNavigateToForm={() => setView('cadastrar')} />;
+                return <ListaProdutos key={productUpdateKey} onNavigateToForm={() => navigateView('cadastrar')} />;
             case 'cadastrar':
-                return <FormularioProduto onCancel={() => setView('produtos')} />;
+                return <FormularioProduto onCancel={() => navigateView('produtos')} onProductSaved={handleProductSaved} />;
             case 'pedidos':
                 return <PlaceholderView title="Pedidos" />;
             default:
@@ -53,24 +65,18 @@ function PerfilVendedor() {
     };
 
     return (
-        <div className="dashboard-layout">
+        <div className={`dashboard-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
             <aside className="dashboard-sidebar">
                 <div className="sidebar-header">
-                    <Link to="/" className="sidebar-logo">
-                        <h3>Doce Sabor</h3>
-                    </Link>
+                    <Link to="/" className="sidebar-logo"><h3>Doce Sabor</h3></Link>
                 </div>
                 <nav className="sidebar-nav">
                     <ul>
                         <li className={view === 'pedidos' ? 'active' : ''}>
-                            <button onClick={() => setView('pedidos')}>
-                                <i className="bi bi-receipt"></i> Pedidos
-                            </button>
+                            <button onClick={() => navigateView('pedidos')}><i className="bi bi-receipt"></i> Pedidos</button>
                         </li>
                         <li className={view === 'produtos' || view === 'cadastrar' ? 'active' : ''}>
-                            <button onClick={() => setView('produtos')}>
-                                <i className="bi bi-box-seam"></i> Produtos
-                            </button>
+                            <button onClick={() => navigateView('produtos')}><i className="bi bi-box-seam"></i> Produtos</button>
                         </li>
                     </ul>
                 </nav>
@@ -79,7 +85,9 @@ function PerfilVendedor() {
             <div className="dashboard-main-content">
                 <header className="dashboard-header">
                     <div className="header-left">
-                        <i className="bi bi-list"></i>
+                        <button className="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                            <i className="bi bi-list"></i>
+                        </button>
                     </div>
                     <div className="header-right">
                         <div className="user-menu-container">
@@ -88,7 +96,7 @@ function PerfilVendedor() {
                                 <span>Vendedor</span>
                                 <i className={`bi bi-caret-down-fill ${isProfileMenuOpen ? 'open' : ''}`}></i>
                             </button>
-
+                            
                             <input
                                 type="file"
                                 ref={fileInputRef}
@@ -107,11 +115,11 @@ function PerfilVendedor() {
                         </div>
                     </div>
                 </header>
-
                 <main className="dashboard-content">
                     {renderView()}
                 </main>
             </div>
+            <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>
         </div>
     );
 }
