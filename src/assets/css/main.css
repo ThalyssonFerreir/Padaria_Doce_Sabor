@@ -224,7 +224,7 @@ h6 {
 .header {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 15px 0; 
+  padding: 15px 0;
   transition: all 0.5s;
   z-index: 9999;
 }
@@ -286,7 +286,7 @@ h6 {
 /* Media query para a responsividade do header */
 @media (max-width: 1199px) {
   .header .btn-book-a-table {
-    margin: 0 10px 0 0; 
+    margin: 0 10px 0 0;
   }
 
   .mobile-nav-active .header .logo {
@@ -443,7 +443,7 @@ h6 {
     line-height: 0;
     cursor: pointer;
     transition: color 0.3s;
-    z-index: 10000; 
+    z-index: 10000;
   }
 
   .navmenu {
@@ -1931,7 +1931,7 @@ section,
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  
+
   /* Transições */
   transition: background-color 0.3s ease, outline-offset 0.2s ease, outline-color 0.2s ease, transform 0.2s ease;
   outline: 2px solid transparent; /* Borda invisível inicialmente */
@@ -2882,7 +2882,7 @@ button.user-menu .bi-caret-down-fill.open {
     cursor: pointer;
     padding: 0;
   }
-  
+
   .dashboard-header .header-left {
     display: block;
   }
@@ -2909,7 +2909,7 @@ button.user-menu .bi-caret-down-fill.open {
     visibility: visible;
     transition-delay: 0s;
   }
-  
+
   /* 2. Lista de Produtos e Filtros */
   .painel-corpo {
     flex-direction: column;
@@ -2922,7 +2922,7 @@ button.user-menu .bi-caret-down-fill.open {
   .sidebar-nav .mobile-only {
     display: block; /* Mostra o botão 'Filtros' no menu principal */
   }
-  
+
   .filtros-mobile-wrapper {
     display: block;
     position: fixed;
@@ -2966,7 +2966,7 @@ button.user-menu .bi-caret-down-fill.open {
     flex-shrink: 0;
   }
   .filtros-mobile-header h4 { margin: 0; font-size: 1.2rem; font-family: var(--default-font); }
-  
+
   .btn-close-filters { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
   .filtros-mobile-body {
@@ -3023,3 +3023,152 @@ button.user-menu .bi-caret-down-fill.open {
   }
 }
 
+.user-menu-container {
+    position: relative;
+    margin-left: 15px;
+}
+
+.user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 6px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-menu-trigger:hover {
+    background-color: #e9ecef;
+}
+
+.header-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.user-menu-trigger span {
+    font-weight: 500;
+    color: #333;
+}
+
+.user-menu-trigger .bi-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+.user-menu-trigger .rotate-180 {
+    transform: rotate(180deg);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+    width: 200px;
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    z-index: 1001;
+    overflow: hidden;
+
+    /* Animação de entrada */
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-dropdown li a,
+.user-dropdown li button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    font-size: 15px;
+    color: #444;
+    text-decoration: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown li a:hover,
+.user-dropdown li button:hover {
+    background-color: #f8f9fa;
+    color: #d33; /* Cor principal do seu site */
+}
+
+.user-dropdown .dropdown-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 8px 0;
+}
+
+/* --- Estilos para Cards de Produto --- */
+.product-card {
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-image-container {
+    position: relative;
+}
+
+/* --- Estilos para Produtos Esgotados (NOVOS) --- */
+
+/* Aplica um filtro de tons de cinza em todo o card */
+.produto-esgotado {
+    filter: grayscale(80%);
+    opacity: 0.7;
+}
+
+/* Estiliza a tag "Esgotado" que aparece sobre a imagem */
+.tag-esgotado {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Estiliza o botão quando ele está desabilitado */
+.product-card-button:disabled {
+    background-color: #6c757d; /* Cinza */
+    cursor: not-allowed; /* Muda o cursor do mouse */
+    transform: none; /* Remove o efeito de hover */
+    box-shadow: none;
+}
+
+.product-card-button:disabled:hover {
+    background-color: #6c757d; /* Garante que a cor não mude no hover */
+}
+
+main {
+  min-height: 60vh;
+}

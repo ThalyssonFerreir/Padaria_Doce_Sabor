@@ -7,6 +7,11 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./assets/css/main.css";
 
+// Importações para as bibliotecas de UI
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 // Componentes Principais
 import Header from "./componentes/Header";
 import Footer from "./componentes/Footer";
@@ -29,6 +34,7 @@ import Bebidas from './pages/Bebidas';
 import Produtos from './pages/Produtos';
 import Carrinho from './pages/Carrinho';
 import PerfilVendedor from './pages/PerfilVendedor';
+import PerfilCliente from './pages/PerfilCliente';
 
 const HomePage = () => (
     <>
@@ -65,29 +71,34 @@ function AppContent() {
     return (
         <>
             <Routes>
-                {/* Páginas de autenticação (sem Header/Footer) */}
-                <Route path="/" element={<Login />} />
+                {/* Páginas que NÃO TÊM Header/Footer (páginas de autenticação e painel) */}
+                <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/cadvendedor" element={<Cadvendedor />} />
-
-                {/* Rota do Painel (sem Header/Footer) */}
                 <Route path="/perfil-vendedor" element={<PerfilVendedor />} />
 
-                {/* Páginas normais da loja (com Header/Footer) */}
+                {/* Rota "coringa" que aplica o layout com Header/Footer a TODAS as outras páginas */}
                 <Route
                     path="/*"
                     element={
                         <>
                             <Header />
-                            <Routes>
-                                <Route path="/homepage" element={<HomePage />} />
-                                <Route path="/paes" element={<Paes />} />
-                                <Route path="/salgados" element={<Salgados />} />
-                                <Route path="/doces" element={<Doces />} />
-                                <Route path="/bebidas" element={<Bebidas />} />
-                                <Route path="/carrinho" element={<Carrinho />} />
-                                <Route path="/produtos" element={<Produtos />} />
-                            </Routes>
+                            <main>
+                                <Routes>
+                                    {/* A rota principal (/) e a /homepage agora mostram a HomePage */}
+                                    <Route path="/" element={<HomePage />} />
+                                    <Route path="/homepage" element={<HomePage />} />
+                                    <Route path="/meu-perfil" element={<PerfilCliente />} />
+
+                                    {/* Todas as suas outras páginas da loja */}
+                                    <Route path="/paes" element={<Paes />} />
+                                    <Route path="/salgados" element={<Salgados />} />
+                                    <Route path="/doces" element={<Doces />} />
+                                    <Route path="/bebidas" element={<Bebidas />} />
+                                    <Route path="/carrinho" element={<Carrinho />} />
+                                    <Route path="/produtos" element={<Produtos />} />
+                                </Routes>
+                            </main>
                             <Footer />
                         </>
                     }

@@ -1,48 +1,108 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
-export const CartContext = createContext();
+const API_URL = 'http://localhost:3000';
 
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+// 1. O contexto é criado, mas não exportado diretamente daqui.
+const CartContext = createContext();
 
-  // Adiciona um produto ao carrinho ou incrementa a quantidade se já existir
-  const addToCart = (product) => {
-    setCartItems((prevItems) => {
-      const itemInCart = prevItems.find((item) => item.id === product.id);
-      if (itemInCart) {
-        return prevItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      // Adiciona o novo item com quantidade 1
-      return [...prevItems, { ...product, quantity: 1 }];
-    });
-  };
+// 2. O hook personalizado para usar o contexto. É exportado para que outros componentes possam usá-lo.
+export const useCart = () => useContext(CartContext);
 
-  // Remove um item do carrinho, não importa a quantidade
-  const removeFromCart = (productId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
-  };
+// 3. O Componente Provider. Esta é a exportação principal (default) do arquivo.
+function CartProvider({ children }) {
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem('token');
 
-  // Atualiza a quantidade de um item específico
-  const updateQuantity = (productId, quantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === productId ? { ...item, quantity: quantity } : item
-      )
+    const fetchCart = useCallback(async () => {
+        if (!token) {
+            setCartItems([]);
+            setLoading(false);
+            return;
+        }
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_URL}/api/carrinho`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!response.ok) throw new Error('Falha ao buscar carrinho.');
+            const data = await response.json();
+            const formattedCart = data.map(item => ({...item.produto, quantity: item.quantidade }));
+            setCartItems(formattedCart);
+        } catch (error) {
+            console.error(error.message);
+            setCartItems([]);
+        } finally {
+            setLoading(false);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        fetchCart();
+    }, [fetchCart]);
+
+    const addToCart = async (product) => {
+        if (!token) {
+            toast.error('Você precisa estar logado para adicionar itens.');
+            return;
+        }
+        try {
+            const response = await fetch(`${API_URL}/api/carrinho/adicionar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
+                body: JSON.stringify({ produtoId: product.id, quantidade: 1 }),
+            });
+             if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Não foi possível adicionar o item.');
+            }
+            await fetchCart();
+            toast.success(`"${product.nome}" adicionado ao carrinho!`);
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    const updateCartItemQuantity = async (produtoId, quantidade) => {
+        if (!token) return;
+        try {
+            const response = await fetch(`${API_URL}/api/carrinho/item`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
+                body: JSON.stringify({ produtoId, quantidade }),
+            });
+            if (!response.ok) throw new Error("Erro ao atualizar a quantidade.");
+            await fetchCart();
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    const removeCartItem = async (produtoId) => {
+        if (!token) return;
+        try {
+            const response = await fetch(`${API_URL}/api/carrinho/item/${produtoId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}`},
+            });
+            if (!response.ok && response.status !== 204) throw new Error("Erro ao remover o item.");
+            await fetchCart();
+            toast.success("Item removido do carrinho.");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    const clearCart = () => setCartItems([]);
+
+    const value = { cartItems, addToCart, clearCart, fetchCart, updateCartItemQuantity, removeCartItem, loading };
+
+    return (
+        <CartContext.Provider value={value}>
+            {children}
+        </CartContext.Provider>
     );
-  };
-
-  return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, updateQuantity }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
 };
 
-// Hook customizado para facilitar o uso do contexto
-export const useCart = () => {
-  return useContext(CartContext);
-};
+export default CartProvider;

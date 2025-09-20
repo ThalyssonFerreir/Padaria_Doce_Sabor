@@ -1,18 +1,23 @@
 import { useState } from "react";
-import "../assets/css/login.css";
-import { useNavigate } from "react-router-dom";
+import "../assets/css/auth.css";
+import { useNavigate, Link } from "react-router-dom";
+import AuthInput from "../componentes/AuthInput";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [mensagem, setMensagem] = useState(""); // Para feedback
+  const [showPassword, setShowPassword] = useState(false);
+  const [feedback, setFeedback] = useState({ message: "", type: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setFeedback({ message: "", type: "" });
 
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch("http://localhost:3000/api/usuarios/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
@@ -21,69 +26,79 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        console.log("Usuário logado:", data);
-        setMensagem(`Bem-vindo, ${data.nome}!`);
-        navigate("/homepage");
+        setFeedback({ message: `Bem-vindo, ${data.usuario.nome}!`, type: "success" });
+
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.usuario));
+        }
+
+        // ==================================================================
+        // A MÁGICA DO REDIRECIONAMENTO ACONTECE AQUI
+        // ==================================================================
+        // Verificamos a 'role' do usuário que veio da API
+        if (data.usuario.role === 'VENDEDOR') {
+            // Se for vendedor, vai para o painel
+            setTimeout(() => navigate("/perfil-vendedor"), 1500);
+        } else {
+            // Se for qualquer outra coisa (CLIENTE), vai para a homepage
+            setTimeout(() => navigate("/homepage"), 1500);
+        }
+
       } else {
-        setMensagem(data.error || "Erro ao fazer login");
+        setFeedback({ message: data.error || "Erro ao fazer login", type: "error" });
       }
     } catch (err) {
-      setMensagem("Erro ao conectar com o servidor");
+      setFeedback({ message: "Erro de conexão. Tente novamente.", type: "error" });
       console.error(err);
+    } finally {
+        setIsLoading(false);
     }
   };
 
   return (
-    <div className ='tela-login'>
-
+    <div className='tela-login'>
       <div className="container-login">
-        
         <div className="logo-login">
-          <img src="/assets/img/imgsPadaria/PadariaLogo.webp"></img>
+          <img src="/assets/img/imgsPadaria/PadariaLogo.webp" alt="Logo da Padaria"></img>
         </div>
-        
         <h1>Login</h1>
-
         <form onSubmit={handleSubmit} className="form-login">
-          <input
-            className="input-login"
+          <AuthInput
+            iconClassName="bi-envelope-fill"
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
-
-          <input
-            className="input-login"
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            required
-          />
-
-          <button type="submit" className="button-login-form">
-            Entrar
+          <div className="input-group password-group">
+            <i className="bi bi-lock-fill"></i>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+            <i
+              className={`bi ${showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'} password-toggle-icon`}
+              onClick={() => setShowPassword(!showPassword)}
+            ></i>
+          </div>
+          {feedback.message && (
+            <p className={`mensagem ${feedback.type}`}>
+              {feedback.message}
+            </p>
+          )}
+          <button type="submit" className="button-login-form" disabled={isLoading}>
+            {isLoading ? 'Entrando...' : 'Entrar'}
           </button>
-
         </form>
-
-
-
-        {mensagem &&
-         <p className="mensagem">
-          {mensagem}
-         </p>}
-
-        <button onClick={() => navigate("/register")} className="button-login">
-          Realizar Cadastro
-        </button>
-
+        <div className="login-footer-links">
+          <Link to="/register">Realizar Cadastro</Link>
+        </div>
       </div>
-
     </div>
-    
   );
 }

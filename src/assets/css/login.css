@@ -8,17 +8,17 @@ html, body {
   min-height: 100vh; /* ocupa 100% da altura da viewport */
   background-color: #e8ebe5;
   display: flex;
-  
+
 
   justify-content: center;
-  align-items: center;   
-  flex-direction: column;  
+  align-items: center;
+  flex-direction: column;
 }
 
 .tela-login .container-login{
   display: flex;
   flex-direction: column;
-  align-items: center;    
+  align-items: center;
   gap: 2vh;
 }
 
@@ -78,13 +78,13 @@ html, body {
 
 
 .button-login-form{
-  background-color: #d33;  
-  color: white;  
-  border: none;            
+  background-color: #d33;
+  color: white;
+  border: none;
   padding: 12px 30px;
   font-size: 13px;
   font-weight: 500;
-  border-radius: 50px;      
+  border-radius: 50px;
   transition: background 0.3s ease;
   margin-top: 30px;
 }
@@ -94,13 +94,13 @@ html, body {
 }
 
 .button-login {
-  background-color: #d33;  
-  color: white;  
-  border: none;            
+  background-color: #d33;
+  color: white;
+  border: none;
   padding: 12px 30px;
   font-size: 13px;
   font-weight: 500;
-  border-radius: 50px;      
+  border-radius: 50px;
   transition: background 0.3s ease;
 }
 

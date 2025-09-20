@@ -1,0 +1,196 @@
+/* src/assets/css/auth.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* --- ESTRUTURA PRINCIPAL (Unificada para Login e Registro) --- */
+.tela-login, .tela-register {
+  min-height: 100vh;
+  background-color: #e8ebe5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container-login, .container-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px A25px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 420px; /* Largura máxima para consistência */
+}
+
+/* --- LOGO COM ANIMAÇÃO --- */
+.logo-login, .logo-register {
+  margin-bottom: 20px;
+}
+
+.logo-login img, .logo-register img {
+  width: 180px;
+  height: 180px;
+  animation: flutuar 5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+/* --- TÍTULOS E FORMULÁRIOS --- */
+h1 {
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.form-login, .form-register {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- GRUPO DE INPUT COM ÍCONE (NOVO) --- */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-group i.bi { /* Seleciona apenas os ícones do Bootstrap */
+  position: absolute;
+  left: 15px;
+  color: #888;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.input-group input {
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 14px 15px 14px 45px; /* Espaço para o ícone à esquerda */
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  border-color: #c00;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.1);
+}
+
+/* --- ÍCONE DE MOSTRAR/OCULTAR SENHA (NOVO) --- */
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  left: auto !important; /* Garante que ele fique à direita */
+  cursor: pointer;
+  color: #555;
+  z-index: 2;
+}
+
+/* --- BOTÕES --- */
+.button-login-form, .button-register-form {
+  background-color: #d33;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.button-login-form:hover, .button-register-form:hover {
+  background-color: #b22;
+  transform: translateY(-2px); /* Efeito de elevação */
+}
+
+.button-login-form:disabled, .button-register-form:disabled {
+  background-color: #f3a0a0;
+  cursor: not-allowed;
+  transform: translateY(0);
+}
+
+/* --- MENSAGENS DE FEEDBACK (NOVO) --- */
+.mensagem {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  margin: 10px 0 0 0;
+}
+
+.mensagem.success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.mensagem.error {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+/* --- LINKS NO RODAPÉ (NOVO) --- */
+.login-footer-links, .register-footer-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.login-footer-links a, .register-footer-links a {
+  color: #d33;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.login-footer-links a:hover, .register-footer-links a:hover {
+  color: #b22;
+  text-decoration: underline;
+}
+
+/* --- BOTÃO CADASTRO DE VENDEDOR --- */
+.button-cad-vendedor-em-register {
+  background-color: rgb(250, 126, 18);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.button-cad-vendedor-em-register:hover {
+  background-color: rgb(215, 114, 25);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
