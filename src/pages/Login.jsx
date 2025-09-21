@@ -5,7 +5,7 @@ import AuthInput from "../componentes/AuthInput";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [senha, setpassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,7 @@ export default function Login() {
 
         if (data.token) {
             localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.usuario));
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
         }
 
         // ==================================================================
@@ -76,9 +76,9 @@ export default function Login() {
             <i className="bi bi-lock-fill"></i>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Senha"
+              placeholder="password"
               value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               required
             />
             <i

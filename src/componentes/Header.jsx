@@ -15,7 +15,7 @@ function Header() {
 
     const location = useLocation();
 
-    const [user, setUser] = useState(null);
+    const [usuario, setUser] = useState(null);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -24,7 +24,7 @@ function Header() {
 
     useEffect(() => {
 
-        const userDataString = localStorage.getItem('user');
+        const userDataString = localStorage.getItem('usuario');
 
         if (userDataString) {
 
@@ -70,7 +70,7 @@ function Header() {
 
         localStorage.removeItem('token');
 
-        localStorage.removeItem('user');
+        localStorage.removeItem('usuario');
 
         setUser(null);
 
@@ -159,15 +159,15 @@ function Header() {
 
                 <div className="cart-and-toggle d-flex align-items-center">
 
-                    {user ? (
+                    {usuario ? (
 
                         <div className="user-menu-container" ref={dropdownRef}>
 
                             <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="user-menu-trigger">
 
-                                <img src={user.avatarUrl ? `http://localhost:3000/${user.avatarUrl}` : '/assets/img/foto/foto.png'} alt="Avatar" className="header-avatar" />
+                                <img src={usuario.avatarUrl ? `http://localhost:3000/${usuario.avatarUrl}` : '/assets/img/foto/foto.png'} alt="Avatar" className="header-avatar" />
 
-                                <span>{user.nome.split(' ')[0]}</span>
+                                <span>{usuario.nome.split(' ')[0]}</span>
 
                                 <i className={`bi bi-chevron-down transition-all ${isDropdownOpen ? 'rotate-180' : ''}`}></i>
 
@@ -179,7 +179,7 @@ function Header() {
 
                                     <li>
 
-                                        {user.role === 'VENDEDOR' ? (
+                                        {usuario.role === 'VENDEDOR' ? (
 
                                             <Link to="/perfil-vendedor" onClick={() => setIsDropdownOpen(false)}>
 

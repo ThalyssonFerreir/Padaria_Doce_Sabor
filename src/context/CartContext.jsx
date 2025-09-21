@@ -42,7 +42,7 @@ function CartProvider({ children }) {
         fetchCart();
     }, [fetchCart]);
 
-    const addToCart = async (product) => {
+    const addToCart = async (produto) => {
         if (!token) {
             toast.error('Você precisa estar logado para adicionar itens.');
             return;
@@ -51,14 +51,14 @@ function CartProvider({ children }) {
             const response = await fetch(`${API_URL}/api/carrinho/adicionar`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
-                body: JSON.stringify({ produtoId: product.id, quantidade: 1 }),
+                body: JSON.stringify({ produtoId: produto.id, quantidade: 1 }),
             });
              if (!response.ok) {
                 const data = await response.json();
                 throw new Error(data.error || 'Não foi possível adicionar o item.');
             }
             await fetchCart();
-            toast.success(`"${product.nome}" adicionado ao carrinho!`);
+            toast.success(`"${produto.nome}" adicionado ao carrinho!`);
         } catch (error) {
             toast.error(error.message);
         }
