@@ -1,6 +1,7 @@
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cadvendedor from './pages/Cadvendedor';
+import ForgotPassword from "./pages/ForgotPassword";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from "react";
 import AOS from "aos";
@@ -21,7 +22,6 @@ import Inicio from "./componentes/Inicio";
 import Historia from "./componentes/Historia";
 import Menu from "./componentes/Menu";
 import Testimonials from "./componentes/Testimonials";
-import Kits from "./componentes/Kits";
 import Chefs from "./componentes/Chefs";
 import Gallery from "./componentes/Gallery";
 import TrabalheConosco from "./componentes/TrabalheConosco";
@@ -42,7 +42,6 @@ const HomePage = () => (
         <Historia />
         <Menu />
         <Testimonials />
-        <Kits />
         <Chefs />
         <Gallery />
         <TrabalheConosco />
@@ -75,6 +74,7 @@ function AppContent() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/cadvendedor" element={<Cadvendedor />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/perfil-vendedor" element={<PerfilVendedor />} />
 
                 {/* Rota "coringa" que aplica o layout com Header/Footer a TODAS as outras páginas */}
