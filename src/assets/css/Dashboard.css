@@ -1,0 +1,177 @@
+/* src/assets/css/Dashboard.css */
+
+/* === ESTILOS GERAIS DO PAINEL E BOTÕES === */
+.btn-painel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+.btn-painel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.btn-adicionar { background-color: #198754; color: white; }
+.btn-adicionar:hover { background-color: #157347; }
+.btn-editar { background-color: #0d6efd; color: white; margin-right: 8px; }
+.btn-editar:hover { background-color: #0b5ed7; }
+.btn-deletar { background-color: #dc3545; color: white; }
+.btn-deletar:hover { background-color: #bb2d3b; }
+.btn-primary-green { background-color: #198754; color: white; }
+.btn-primary-green:hover { background-color: #157347; }
+.btn-secondary-red { background-color: #6c757d; color: white; }
+.btn-secondary-red:hover { background-color: #5c636a; }
+
+/* === ESTILOS DO MENU DROPDOWN DO PERFIL === */
+.profile-dropdown-menu {
+    list-style: none; padding: 8px 0; margin: 0; background-color: white;
+    border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: absolute; top: 110%; right: 0; width: 180px;
+    z-index: 1000; border: 1px solid #eee;
+}
+.profile-dropdown-menu li button {
+    background: none; border: none; width: 100%; text-align: left;
+    padding: 10px 20px; font-size: 15px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; color: #333;
+}
+.profile-dropdown-menu li button:hover { background-color: #f8f9fa; }
+.profile-dropdown-menu .divider { height: 1px; background-color: #eee; margin: 8px 0; }
+
+/* === ESTILOS DOS FILTROS E BUSCA === */
+.filtros-container {
+    padding: 20px; background-color: #fff; border-radius: 8px;
+    margin-bottom: 24px; display: flex; align-items: flex-end;
+    gap: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.filtro-busca { position: relative; flex-grow: 1; }
+.filtro-busca i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
+.filtro-busca input {
+    width: 100%; padding: 12px 15px 12px 45px; border: 1px solid #ddd;
+    border-radius: 6px; font-size: 15px; box-sizing: border-box; transition: all 0.2s ease;
+}
+.filtro-busca input:focus { outline: none; border-color: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); }
+.filtro-select { display: flex; flex-direction: column; gap: 4px; }
+.filtro-select label { font-size: 12px; font-weight: 500; color: #555; }
+.filtro-select select {
+    padding: 11px 15px; border: 1px solid #ddd; border-radius: 6px;
+    font-size: 15px; background-color: #f8f9fa; min-width: 150px; cursor: pointer;
+}
+.nenhum-resultado { text-align: center; padding: 40px; color: #6c757d; }
+
+/* === ESTILOS DA TABELA PARA DESKTOP === */
+.tabela-produtos {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tabela-produtos th, .tabela-produtos td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: middle;
+}
+.tabela-produtos th {
+    background-color: #f8f9fa;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+}
+.produto-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.produto-imagem-tabela {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* === ESTILOS PARA SELETORES DE STATUS (VERSÃO FINAL) === */
+.status-select-wrapper {
+    position: relative;
+    display: inline-flex; /* Alinha o wrapper com o texto */
+    align-items: center;
+    border-radius: 20px;
+    padding-right: 28px; /* Espaço para a seta customizada */
+    transition: background-color 0.2s ease;
+}
+.status-select-wrapper select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 6px 12px;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    line-height: inherit;
+    outline: none;
+    color: inherit; /* Herda a cor do texto do wrapper */
+}
+/* A seta do dropdown, criada com CSS */
+.status-select-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid currentColor;
+    pointer-events: none;
+}
+/* As cores são aplicadas no wrapper */
+.status-pendente { background-color: #fff3cd; color: #664d03; }
+.status-preparo { background-color: #cff4fc; color: #055160; }
+.status-caminho { background-color: #cfe2ff; color: #0a367e; }
+.status-entregue { background-color: #d1e7dd; color: #0f5132; }
+.status-cancelado { background-color: #f8d7da; color: #58151c; }
+
+
+/* === ESTILOS PARA O MODAL DE DETALHES DO PEDIDO === */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; display: flex; justify-content: center; align-items: center; }
+.modal-content { background: #fff; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; outline: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease-out; }
+.modal-content h2 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+.modal-itens-titulo { margin-top: 25px; margin-bottom: 10px; font-size: 1.1em; }
+.modal-itens-lista { list-style: none; padding: 0; margin: 0; }
+.modal-itens-lista li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f2f2f2; }
+.modal-itens-lista li:last-child { border: none; }
+.modal-total { display: flex; justify-content: space-between; font-size: 1.4em; margin-top: 20px; padding-top: 15px; border-top: 2px solid #333; }
+.modal-fechar { display: block; margin-left: auto; margin-top: 30px; }
+
+/* === REGRAS DE RESPONSIVIDADE PARA CELULARES === */
+@media (max-width: 800px) {
+    .filtros-container { flex-direction: column; align-items: stretch; }
+    .tabela-produtos { border: none; display: block; }
+    .tabela-produtos thead { display: none; }
+    .tabela-produtos tbody { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+    .tabela-produtos tr { display: flex; flex-direction: column; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #eee; margin-bottom: 0; overflow: hidden; }
+    .tabela-produtos td { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: 14px; text-align: right; border-bottom: 1px solid #f2f2f2; width: auto !important; }
+    .tabela-produtos td:last-child { border-bottom: none; }
+    .tabela-produtos td::before { content: attr(data-label); font-weight: 500; text-align: left; margin-right: 10px; color: #555; }
+    .tabela-produtos td[data-label="Produto"] { order: -1; padding: 0; border: none; flex-direction: column; align-items: stretch; }
+    .tabela-produtos td[data-label="Produto"]::before { display: none; }
+    .produto-info-cell { gap: 0; flex-direction: column; }
+    .produto-imagem-tabela { width: 100%; height: 140px; object-fit: cover; border-radius: 0; }
+    .produto-info-cell span { padding: 12px; font-size: 1em; font-weight: 600; color: #212529; align-self: flex-start; }
+    .tabela-produtos td[data-label="Ação"] { background-color: #f8f9fa; border-top: 1px solid #eee; justify-content: flex-end; padding: 8px 12px; }
+    .tabela-produtos td[data-label="Ação"]::before { display: none; }
+}
+@media (max-width: 400px) {
+    .tabela-produtos tbody { grid-template-columns: 1fr; }
+}

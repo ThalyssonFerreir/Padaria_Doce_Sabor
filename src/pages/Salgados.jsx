@@ -1,203 +1,92 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/css/main.css';
 import { useCart } from '../context/CartContext';
-import { useNavigate } from 'react-router-dom'; // Importe o useNavigate
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+const API_URL = 'http://localhost:3000';
 
 function Salgados() {
-  const navigate = useNavigate(); // Hook para navegação
-  const { addToCart } = useCart();
+    const [salgados, setSalgados] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const { addToCart } = useCart();
 
-  // Dados dos salgados
-  const salgados = [
-  {
-    id: 1,
-    nome: "Coxinha de Frango com Requeijão",
-    valor: "5,00",
-    descricao: "Salgado clássico, massa macia e dourada, recheio cremoso de frango com requeijão.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad1.png",
-  },
-  {
-    id: 2,
-    nome: "Risole de Carne",
-    valor: "5,00",
-    descricao: "Salgado frito, massa saborosa e crocante, recheado com carne bem temperada.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad2.png",
-  },
-  {
-    id: 3,
-    nome: "Bolinho de Queijo",
-    valor: "2,50",
-    descricao: "Pequeno e saboroso, casquinha crocante e recheio cremoso de queijo derretido.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad3.png",
-  },
-  {
-    id: 4,
-    nome: "Mini Pizza (Calabresa, Queijo)",
-    valor: "3,50",
-    descricao: "Massa macia, molho saboroso e perfeita para festas.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad4.png",
-  },
-  {
-    id: 5,
-    nome: "Esfiha Aberta (Carne, Queijo)",
-    valor: "6,99",
-    descricao: "Massa leve em formato aberto, recheios suculentos, tradicional árabe.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad5.png",
-  },
-  {
-    id: 6,
-    nome: "Quiche Lorraine",
-    valor: "6,50",
-    descricao: "Torta francesa, recheio cremoso de ovos, bacon e queijo em massa amanteigada.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad6.png",
-  },
-  {
-    id: 7,
-    nome: "Quiche de Alho-Poró",
-    valor: "8,00",
-    descricao: "Versão leve da quiche, recheada com alho-poró refogado e creme suave.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad7.png",
-  },
-  {
-    id: 8,
-    nome: "Empada de Palmito",
-    valor: "5,50",
-    descricao: "Massa quebradiça, amanteigada, recheada com palmito cremoso e bem temperado.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad8.png",
-  },
-  {
-    id: 9,
-    nome: "Empada de Frango",
-    valor: "10,90",
-    descricao: "Casquinha delicada, recheio cremoso e suculento de frango temperado.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad9.png",
-  },
-  {
-    id: 10,
-    nome: "Pastel de Feira (Carne, Queijo, Frango, Palmito)",
-    valor: "7,60",
-    descricao: "Massa fina e crocante frita, recheios variados, clássico das feiras.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad10.png",
-  },
-  {
-    id: 11,
-    nome: "Croissant de Presunto e Queijo",
-    valor: "4,99",
-    descricao: "Folhado leve e amanteigado, recheio derretido de presunto e queijo.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad11.png",
-  },
-  {
-    id: 12,
-    nome: "Kibe",
-    valor: "6,00",
-    descricao: "Kibe com carne selecionada e temperos especiais, crocante por fora e macio por dentro.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad12.png",
-  },
-  {
-    id: 13,
-    nome: "Enroladinho de Salsicha",
-    valor: "4,00",
-    descricao: "Massa fina envolvendo salsicha, ótimo para lanches rápidos e festas.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad13.png",
-  },
-  {
-    id: 14,
-    nome: "Pão de Queijo Tradicional",
-    valor: "2,00",
-    descricao: "Macio, leve e saboroso, com muito queijo, clássico da culinária mineira.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad14.png",
-  },
-  {
-    id: 15,
-    nome: "Folhado de Frango com Catupiry",
-    valor: "4,50",
-    descricao: "Massa crocante e leve, recheio cremoso de frango com catupiry.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad15.png",
-  },
-  {
-    id: 16,
-    nome: "Torta Salgada (Frango, Legumes)",
-    valor: "50,00",
-    descricao: "Massa macia e recheio suculento, perfeita para lanches ou eventos.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad16.png",
-  },
-  {
-    id: 17,
-    nome: "Mini Sanduíche Natural (Frango, Atum)",
-    valor: "2,00",
-    descricao: "Sanduíches frios, recheios leves e cremosos, ideais para coffee breaks.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad17.png",
-  },
-  {
-    id: 18,
-    nome: "Salgadinho de queijo de padaria",
-    valor: "1,50",
-    descricao: "Delicado salgado, massa saborosa, polvilhado com queijo ralado.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad18.png",
-  },
-  {
-    id: 19,
-    nome: "Croque Monsieur (Sanduíche quente)",
-    valor: "5,00",
-    descricao: "Sanduíche francês quente, gratinado, recheado com presunto, queijo e molho béchamel.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad19.png",
-  },
-  {
-    id: 20,
-    nome: "Fogazza (Mussarela, Calabresa)",
-    valor: "9,99",
-    descricao: "Massa frita e macia, recheio generoso de queijo ou calabresa, muito saborosa.",
-    imagem: "/assets/img/imgsPadaria/salgados/salgad20.png",
-  },
-];
+    useEffect(() => {
+        const fetchSalgados = async () => {
+            try {
+                const response = await fetch(`${API_URL}/api/produtos`);
+                if (!response.ok) throw new Error('Falha ao buscar os salgados.');
+                let data = await response.json();
+                // Filtra para mostrar apenas produtos do tipo "Salgados"
+                data = data.filter(p => p.tipo === 'Salgados');
+                setSalgados(data);
+            } catch (error) {
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchSalgados();
+    }, []);
 
-  const handleGoToMenu = () => {
-    navigate('/');
-    setTimeout(() => {
-      const element = document.getElementById('cardapio');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  };
+    const handleGoToMenu = () => {
+        navigate('/');
+        setTimeout(() => {
+            const element = document.getElementById('cardapio');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    };
 
-  const ProductCard = ({ produto }) => (
-    <div className="product-card">
-      <img src={produto.imagem} alt={produto.nome} />
-      <div className="product-card-content">
-        <h2 className="product-card-title">{produto.nome}</h2>
-        <p className="product-card-price">R$ {produto.valor}</p>
-        <p className="product-card-description">{produto.descricao}</p>
-      </div>
-      <div className="product-card-button-wrapper">
-        <button className="product-card-button" onClick={() => addToCart(produto)}>
-          Adicionar ao Carrinho
-        </button>
-      </div>
-    </div>
-  );
+    const ProductCard = ({ produto }) => {
+        const isOutOfStock = produto.estoque === 0;
 
-  return (
-    <div style={{ padding: "40px", textAlign: 'center' }}>
-      <h1 style={{ color: "#d2691e" }}>
-        Nossos Salgados
-      </h1>
+        return (
+            <div className={`product-card ${isOutOfStock ? 'produto-esgotado' : ''}`}>
+                <div className="product-image-container">
+                    <img src={produto.imagemUrl ? `${API_URL}/${produto.imagemUrl}` : 'https://via.placeholder.com/200'} alt={produto.nome} />
+                    {isOutOfStock && <div className="tag-esgotado">Esgotado</div>}
+                </div>
+                <div className="product-card-content">
+                    <h2 className="product-card-title">{produto.nome}</h2>
+                    <p className="product-card-price">R$ {produto.preco.toFixed(2).replace('.', ',')}</p>
+                    <p className="product-card-description">{produto.descricao}</p>
+                </div>
+                <div className="product-card-button-wrapper">
+                    <button
+                        className="product-card-button"
+                        onClick={() => addToCart(produto)}
+                        disabled={isOutOfStock}
+                    >
+                        {isOutOfStock ? 'Sem Estoque' : 'Adicionar ao Carrinho'}
+                    </button>
+                </div>
+            </div>
+        );
+    };
 
-      {/* BOTÃO ATUALIZADO com a nova classe de estilo */}
-      <button onClick={handleGoToMenu} className="back-to-menu-btn">
-        &larr; Voltar ao Cardápio
-      </button>
+    if (loading) return <div style={{ padding: "40px", textAlign: 'center' }}><h1>Carregando salgados...</h1></div>;
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
-        {salgados.map((salgado) => (
-          <ProductCard
-            key={salgado.id}
-            produto={salgado}
-          />
-        ))}
-      </div>
-    </div>
-  );
+    return (
+        <div style={{ padding: "40px", textAlign: 'center' }}>
+            <h1 style={{ color: "#d2691e" }}>
+                Nossos Salgados
+            </h1>
+            <button onClick={handleGoToMenu} className="back-to-menu-btn">
+                &larr; Voltar ao Cardápio
+            </button>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center", marginTop: '20px' }}>
+                {salgados.map((salgado) => (
+                    <ProductCard
+                        key={salgado.id}
+                        produto={salgado}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default Salgados;

@@ -1,74 +1,69 @@
 import React, { useState } from 'react';
 import './FinalizePurchaseButton.css';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-// animação do botão de finalização de compra
+const API_URL = 'http://localhost:3000';
+
 function FinalizePurchaseButton({ onPurchaseComplete }) {
-  const [buttonState, setButtonState] = useState('idle');
-  const navigate = useNavigate(); // <<< 2. ADICIONE ESTA LINHA
+    const [buttonState, setButtonState] = useState('idle');
+    const token = localStorage.getItem('token');
 
-  const handleClick = () => {
-    if (buttonState === 'idle') {
-      setButtonState('loading');
+    const handleClick = async () => {
+        if (buttonState !== 'idle' || !token) return;
 
-      setTimeout(() => {
-        setButtonState('finishing');
-      }, 2000);
+        setButtonState('loading');
 
-      // Bloco de código da finalização da compra
-      setTimeout(() => {
-        setButtonState('completed');
+        try {
+            const response = await fetch(`${API_URL}/api/pedidos/finalizar`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
 
-        if (onPurchaseComplete) {
-          onPurchaseComplete();
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Não foi possível finalizar a compra.');
+            }
+
+            setButtonState('completed');
+
+            setTimeout(() => {
+                if (onPurchaseComplete) {
+                    onPurchaseComplete();
+                }
+            }, 1500);
+
+        } catch (error) {
+            toast.error(error.message);
+            setButtonState('idle');
         }
+    };
 
-        // <<< 3. ADICIONE A CHAMADA PARA REDIRECIONAR AQUI
-        // Adiciona um pequeno atraso para o usuário ver a mensagem de sucesso
-        setTimeout(() => {
-          navigate('/'); // Redireciona para a página inicial (rota raiz)
-        }, 1200); // 1.2 segundos de atraso antes de redirecionar
+    let buttonText = 'Finalizar Compra';
+    let buttonClass = '';
 
-      }, 4000);
-
-      // Este último timeout provavelmente não será executado,
-      // pois a página já terá sido redirecionada.
-      setTimeout(() => {
-        setButtonState('idle');
-      }, 6000);
+    switch (buttonState) {
+        case 'loading':
+            buttonText = 'Processando...';
+            buttonClass = 'loading';
+            break;
+        case 'completed':
+            buttonText = 'Compra Realizada!';
+            buttonClass = 'completed';
+            break;
+        default:
+            buttonText = 'Finalizar Compra';
+            buttonClass = '';
     }
-  };
 
-  let buttonText = 'Finalizar Compra';
-  let buttonClass = '';
-
-  switch (buttonState) {
-    case 'loading':
-      buttonText = 'Preparando seu Café...';
-      buttonClass = 'loading';
-      break;
-    case 'finishing':
-      buttonText = 'Finalizando Compra...';
-      buttonClass = 'finishing';
-      break;
-    case 'completed':
-      buttonText = 'Compra Finalizada!';
-      buttonClass = 'completed';
-      break;
-    default:
-      buttonText = 'Finalizar Compra';
-      buttonClass = '';
-  }
-
-  return (
-    <button
-      className={`finalize-button ${buttonClass}`}
-      onClick={handleClick}
-      disabled={buttonState !== 'idle'}
-    >
-      <span className="button-text">{buttonText}</span>
-    </button>
-  );
+    return (
+        <button
+            className={`finalize-button ${buttonClass}`}
+            onClick={handleClick}
+            disabled={buttonState !== 'idle'}
+        >
+            <span className="button-text">{buttonText}</span>
+        </button>
+    );
 }
 
 export default FinalizePurchaseButton;

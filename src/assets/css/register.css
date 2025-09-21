@@ -64,6 +64,25 @@ html, body {
   margin: 2vh;
 }
 
+.auth-heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.auth-heading h2 {
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #6c757d;
+  margin: 0;
+}
+.auth-heading h1 {
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #343a40;
+  margin: 0;
+}
+
 .input-register {
   border: 1px solid #ccc;
   outline: none; /* remove o contorno padrão do navegador */
@@ -132,4 +151,35 @@ html, body {
   transition: 0.3s;
   background-color: rgb(215, 114, 25);
   box-shadow: 2px 5px 4px rgb(160, 160, 160);
+}
+
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 576px) {
+  .tela-register {
+    padding: 15px;
+  }
+
+  .container-register {
+    width: 90%;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .logo-register img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .input-register {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-register-form,
+  .button-register,
+  .button-cad-vendedor-em-register {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }

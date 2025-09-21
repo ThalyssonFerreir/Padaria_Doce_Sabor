@@ -94,3 +94,31 @@ html, body {
 .button-cad-vendedor:hover {
   background-color: #b22;
 }
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 576px) {
+  .tela-cad-vendedor {
+    padding: 15px;
+  }
+
+  .container-cad-vendedor {
+    width: 90%;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .logo-cad-vendedor img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .input-cad-vendedor {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-cad-vendedor {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
