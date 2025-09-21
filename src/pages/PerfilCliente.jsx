@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, usuarioef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -132,30 +132,30 @@ const HistoricoPedidosCliente = () => {
 
 function PerfilCliente() {
 
-    const [user, setUser] = useState(null);
+    const [usuario, setusuario] = useState(null);
 
     const [view, setView] = useState('pedidos');
 
     const [avatarSrc, setAvatarSrc] = useState('/assets/img/foto/foto.png');
 
-    const fileInputRef = useRef(null);
+    const fileInputRef = usuarioef(null);
 
     const navigate = useNavigate();
 
 
     useEffect(() => {
 
-        const userDataString = localStorage.getItem('user');
+        const usuarioDataString = localStorage.getItem('usuario');
 
-        if (userDataString) {
+        if (usuarioDataString) {
 
-            const parsedUser = JSON.parse(userDataString);
+            const parsedusuario = JSON.parse(usuarioDataString);
 
-            setUser(parsedUser);
+            setusuario(parsedusuario);
 
-            if (parsedUser.avatarUrl) {
+            if (parsedusuario.avatarUrl) {
 
-                setAvatarSrc(`${API_URL}/${parsedUser.avatarUrl}`);
+                setAvatarSrc(`${API_URL}/${parsedusuario.avatarUrl}`);
 
             }
 
@@ -214,11 +214,11 @@ function PerfilCliente() {
 
             setAvatarSrc(newAvatarUrl);
 
-            const updatedUser = { ...user, avatarUrl: data.avatarUrl };
+            const updatedusuario = { ...usuario, avatarUrl: data.avatarUrl };
 
-            localStorage.setItem('user', JSON.stringify(updatedUser));
+            localStorage.setItem('usuario', JSON.stringify(updatedusuario));
 
-            setUser(updatedUser);
+            setusuario(updatedusuario);
 
             toast.success('Foto de perfil atualizada com sucesso!');
 
@@ -226,7 +226,7 @@ function PerfilCliente() {
 
             toast.error(error.message);
 
-            setAvatarSrc(user.avatarUrl ? `${API_URL}/${user.avatarUrl}` : '/assets/img/foto/foto.png');
+            setAvatarSrc(usuario.avatarUrl ? `${API_URL}/${usuario.avatarUrl}` : '/assets/img/foto/foto.png');
 
         }
 
@@ -251,7 +251,7 @@ function PerfilCliente() {
 
                         localStorage.removeItem('token');
 
-                        localStorage.removeItem('user');
+                        localStorage.removeItem('usuario');
 
                         navigate('/');
 
@@ -268,7 +268,7 @@ function PerfilCliente() {
     };
 
 
-    if (!user) {
+    if (!usuario) {
 
         return <div className="container" style={{padding: '80px 0', textAlign: 'center'}}><h2>Carregando perfil...</h2></div>;
 
@@ -291,7 +291,7 @@ function PerfilCliente() {
 
                             <strong>Nome:</strong>
 
-                            <span>{user.nome}</span>
+                            <span>{usuario.nome}</span>
 
                         </div>
 
@@ -299,7 +299,7 @@ function PerfilCliente() {
 
                             <strong>Email:</strong>
 
-                            <span>{user.email}</span>
+                            <span>{usuario.email}</span>
 
                         </div>
 
@@ -307,7 +307,7 @@ function PerfilCliente() {
 
                             <strong>Tipo de Conta:</strong>
 
-                            <span>{user.role}</span>
+                            <span>{usuario.role}</span>
 
                         </div>
 
@@ -384,7 +384,7 @@ function PerfilCliente() {
 
                             />
 
-                            <h3>{user.nome}</h3>
+                            <h3>{usuario.nome}</h3>
 
                         </div>
 

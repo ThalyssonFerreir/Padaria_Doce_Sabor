@@ -4,9 +4,9 @@ import "../assets/css/auth.css";
 import AuthInput from "../componentes/AuthInput";
 
 export default function Register() {
-  const [nome, setNome] = useState("");
+  const [nome, setname] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [senha, setpassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -49,9 +49,9 @@ export default function Register() {
           <AuthInput
             iconClassName="bi-person-fill"
             type="text"
-            placeholder="Nome"
+            placeholder="name"
             value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            onChange={(e) => setname(e.target.value)}
             required
           />
           <AuthInput
@@ -66,9 +66,9 @@ export default function Register() {
             <i className="bi bi-lock-fill"></i>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Senha"
+              placeholder="password"
               value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               required
             />
             <i

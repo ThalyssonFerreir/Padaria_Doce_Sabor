@@ -10,7 +10,7 @@ const API_URL = 'http://localhost:3000';
 const Carrinho = () => {
     const navigate = useNavigate();
     const { cartItems, clearCart, loading, updateCartItemQuantity, removeCartItem } = useCart();
-    const user = localStorage.getItem('user');
+    const usuario = localStorage.getItem('usuario');
 
     const handleQuantityChange = (productId, newQuantity) => {
         if (newQuantity > 0) {
@@ -83,7 +83,7 @@ const Carrinho = () => {
                             <span>Total</span>
                             <span>R$ {calculateTotal()}</span>
                         </div>
-                        {user ? (
+                        {usuario ? (
                             <FinalizePurchaseButton onPurchaseComplete={handlePurchaseComplete} />
                         ) : (
                             <Link to="/login" className={styles.loginButton}>Faça login para finalizar a compra</Link>
