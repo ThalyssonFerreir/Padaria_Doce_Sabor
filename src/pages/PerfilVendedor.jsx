@@ -20,7 +20,7 @@ function PerfilVendedor() {
     const [view, setView] = useState('pedidos'); // Inicia na aba de pedidos
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const fileInputRef = useRef(null);
-    const [user, setUser] = useState(null);
+    const [usuario, setUser] = useState(null);
     const [avatarSrc, setAvatarSrc] = useState('/assets/img/foto/foto.png');
     const [productUpdateKey, setProductUpdateKey] = useState(0);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -78,12 +78,12 @@ function PerfilVendedor() {
             if (!response.ok) throw new Error(data.error || 'Falha no upload.');
             const newAvatarUrl = `${API_URL}/${data.avatarUrl}`;
             setAvatarSrc(newAvatarUrl);
-            const updatedUser = { ...user, avatarUrl: data.avatarUrl };
+            const updatedUser = { ...usuario, avatarUrl: data.avatarUrl };
             localStorage.setItem('user', JSON.stringify(updatedUser));
             setUser(updatedUser);
         } catch (error) {
             console.error("Erro ao trocar foto:", error);
-            setAvatarSrc(user.avatarUrl ? `${API_URL}/${user.avatarUrl}` : '/assets/img/foto/foto.png');
+            setAvatarSrc(usuario.avatarUrl ? `${API_URL}/${usuario.avatarUrl}` : '/assets/img/foto/foto.png');
         }
     };
 
@@ -157,7 +157,7 @@ function PerfilVendedor() {
                         <div className="user-menu-container" ref={dropdownRef}>
                             <button className="user-menu" onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}>
                                 <img src={avatarSrc} alt="Avatar do Vendedor" className="user-avatar" />
-                                <span>{user ? user.nome : 'Vendedor'}</span>
+                                <span>{usuario ? usuario.nome : 'Vendedor'}</span>
                                 <i className={`bi bi-caret-down-fill ${isProfileMenuOpen ? 'open' : ''}`}></i>
                             </button>
                             <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} accept="image/png, image/jpeg" />

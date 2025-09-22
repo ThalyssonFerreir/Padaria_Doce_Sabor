@@ -1,4 +1,4 @@
-import React, { useState, useEffect, usuarioef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -138,7 +138,7 @@ function PerfilCliente() {
 
     const [avatarSrc, setAvatarSrc] = useState('/assets/img/foto/foto.png');
 
-    const fileInputRef = usuarioef(null);
+    const fileInputRef = useRef(null);
 
     const navigate = useNavigate();
 
