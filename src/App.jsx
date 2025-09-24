@@ -21,7 +21,6 @@ import Inicio from "./componentes/Inicio";
 import Historia from "./componentes/Historia";
 import Menu from "./componentes/Menu";
 import Testimonials from "./componentes/Testimonials";
-import Kits from "./componentes/Kits";
 import Chefs from "./componentes/Chefs";
 import Gallery from "./componentes/Gallery";
 import TrabalheConosco from "./componentes/TrabalheConosco";
@@ -111,6 +110,7 @@ function App() {
     return (
         <Router>
             <AppContent />
+            <ToastContainer /> 
         </Router>
     );
 }
