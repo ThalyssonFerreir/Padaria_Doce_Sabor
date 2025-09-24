@@ -142,8 +142,6 @@ function Header() {
 
                         <li><a href="#cardapio" onClick={(e) => { e.preventDefault(); handleNavigateAndScroll('cardapio'); }}>Cardápio</a></li>
 
-                        <li><a href="#kits" onClick={(e) => { e.preventDefault(); handleNavigateAndScroll('kits'); }}>Kit Festas</a></li>
-
                         <li><a href="#clientes" onClick={(e) => { e.preventDefault(); handleNavigateAndScroll('clientes'); }}>Nossos clientes</a></li>
 
                         <li><a href="#chefs" onClick={(e) => { e.preventDefault(); handleNavigateAndScroll('chefs'); }}>Nossos chefs</a></li>
