@@ -19,10 +19,6 @@ function Paes() {
     const navigate = useNavigate();
 
     const { addToCart } = useCart();
-
-
-    useEffect(() => {
-
         const fetchPaes = async () => {
 
             try {
@@ -48,7 +44,7 @@ function Paes() {
             }
 
         };
-
+        useEffect(() => {
         fetchPaes();
 
     }, []);
@@ -78,6 +74,19 @@ function Paes() {
     const ProductCard = ({ produto }) => {
 
         const isOutOfStock = produto.estoque === 0;
+ 
+    const handleAddToCart = async () => {
+      try {
+        await addToCart(produto);
+        setPaes(prev =>
+            prev.map(p =>
+                p.id === produto.id ? { ...p, estoque: p.estoque - 1} : p
+            )
+        );
+      } catch (err) {
+        toast.error("Erro ao adicionar ao carrinho");
+      }
+    };
 
 
         return (
@@ -112,7 +121,7 @@ function Paes() {
 
                         className="product-card-button"
 
-                        onClick={() => addToCart(produto)}
+                        onClick={handleAddToCart}
 
                         // Desabilita o botão se o estoque for zero
 
@@ -164,7 +173,7 @@ function Paes() {
 
                         produto={pao}
 
-                    />
+                    />      
 
                 ))}
 

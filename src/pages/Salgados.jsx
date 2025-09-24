@@ -12,7 +12,7 @@ function Salgados() {
     const navigate = useNavigate();
     const { addToCart } = useCart();
 
-    useEffect(() => {
+    
         const fetchSalgados = async () => {
             try {
                 const response = await fetch(`${API_URL}/api/produtos`);
@@ -27,6 +27,7 @@ function Salgados() {
                 setLoading(false);
             }
         };
+        useEffect(() => {
         fetchSalgados();
     }, []);
 
@@ -42,6 +43,19 @@ function Salgados() {
 
     const ProductCard = ({ produto }) => {
         const isOutOfStock = produto.estoque === 0;
+    
+    const handleAddToCart = async () => {
+      try {
+        await addToCart(produto);
+        setSalgados(prev =>
+            prev.map(p =>
+                p.id === produto.id ? { ...p, estoque: p.estoque - 1} : p
+            )
+        );
+      } catch (err) {
+        toast.error("Erro ao adicionar ao carrinho");
+      }
+    };
 
         return (
             <div className={`product-card ${isOutOfStock ? 'produto-esgotado' : ''}`}>
@@ -57,7 +71,7 @@ function Salgados() {
                 <div className="product-card-button-wrapper">
                     <button
                         className="product-card-button"
-                        onClick={() => addToCart(produto)}
+                        onClick={handleAddToCart}
                         disabled={isOutOfStock}
                     >
                         {isOutOfStock ? 'Sem Estoque' : 'Adicionar ao Carrinho'}

@@ -12,7 +12,7 @@ function Produtos() {
     const navigate = useNavigate();
     const { addToCart } = useCart();
 
-    useEffect(() => {
+    
         const fetchMercearia = async () => {
             try {
                 const response = await fetch(`${API_URL}/api/produtos`);
@@ -27,6 +27,7 @@ function Produtos() {
                 setLoading(false);
             }
         };
+        useEffect(() => {
         fetchMercearia();
     }, []);
 
@@ -42,6 +43,19 @@ function Produtos() {
 
     const ProductCard = ({ produto }) => {
         const isOutOfStock = produto.estoque === 0;
+    
+    const handleAddToCart = async () => {
+      try {
+        await addToCart(produto);
+        setMercearia(prev =>
+            prev.map(p =>
+                p.id === produto.id ? { ...p, estoque: p.estoque - 1} : p
+            )
+        );
+      } catch (err) {
+        toast.error("Erro ao adicionar ao carrinho");
+      }
+    };
 
         return (
             <div className={`product-card ${isOutOfStock ? 'produto-esgotado' : ''}`}>
@@ -57,7 +71,7 @@ function Produtos() {
                 <div className="product-card-button-wrapper">
                     <button
                         className="product-card-button"
-                        onClick={() => addToCart(produto)}
+                        onClick={handleAddToCart}
                         disabled={isOutOfStock}
                     >
                         {isOutOfStock ? 'Sem Estoque' : 'Adicionar ao Carrinho'}

@@ -112,6 +112,7 @@ function App() {
     return (
         <Router>
             <AppContent />
+            <ToastContainer /> 
         </Router>
     );
 }

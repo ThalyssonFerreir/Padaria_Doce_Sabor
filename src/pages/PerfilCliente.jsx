@@ -18,6 +18,35 @@ const HistoricoPedidosCliente = () => {
 
     const [loading, setLoading] = useState(true);
 
+ const handleStatusChange = async (pedidoId, newStatus) => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_URL}/api/pedidos/${pedidoId}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ status: newStatus }),
+            });
+
+            if (!response.ok) throw new Error('Falha ao atualizar o status.');
+
+            setPedidos(pedidos.map(p => p.id === pedidoId ? { ...p, status: newStatus } : p));
+            toast.success(`Pedido #${pedidoId} atualizado para "${newStatus}"!`);
+
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    const getStatusClass = (status) => {
+        switch (status) {
+            case 'PENDENTE': return 'status-pendente';
+            case 'EM PREPARO': return 'status-preparo';
+            case 'A CAMINHO': return 'status-caminho';
+            case 'ENTREGUE': return 'status-entregue';
+            case 'CANCELADO': return 'status-cancelado';
+            default: return '';
+        }
+    };
 
     useEffect(() => {
 
@@ -82,6 +111,18 @@ const HistoricoPedidosCliente = () => {
                                 <div>
 
                                     <strong>Pedido #{pedido.id}</strong>
+                                            <div className={`status-select-wrapper ${getStatusClass(pedido.status)}`}>
+                                            <select
+                                                value={pedido.status}
+                                                onChange={(e) => handleStatusChange(pedido.id, e.target.value)}
+                                            >
+                                                <option value="PENDENTE">Pendente</option>
+                                                <option value="EM PREPARO">Em Preparo</option>
+                                                <option value="A CAMINHO">A Caminho</option>
+                                                <option value="ENTREGUE">Entregue</option>
+                                                <option value="CANCELADO">Cancelado</option>
+                                            </select>
+                                        </div>
 
                                     <small>{new Date(pedido.createdAt).toLocaleDateString('pt-BR')}</small>
 
