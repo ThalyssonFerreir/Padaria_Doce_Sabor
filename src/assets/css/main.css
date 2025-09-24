@@ -224,9 +224,9 @@ h6 {
 .header {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 20px 0;
+  padding: 15px 0;
   transition: all 0.5s;
-  z-index: 997;
+  z-index: 9999;
 }
 
 .header .logo {
@@ -240,53 +240,233 @@ h6 {
 }
 
 .header .logo h1 {
-  font-size: 30px;
+  font-size: 24px;
   margin: 0;
   font-weight: 700;
   color: var(--heading-color);
   font-family: var(--default-font);
+  line-height: 1.2;
+  text-align: left;
 }
 
-.header .logo span {
+/* EM TELAS GRANDES (padrão): Esconde a quebra de linha (<br>) */
+.header .logo h1 br {
+  display: none;
+}
+
+
+
+/* Estilo para o botão e link do carrinho */
+.header .btn-book-a-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent;
+  color: var(--nav-color);
+  padding: 0;
+  margin: 0 15px 0 0;
+  border: none;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.2;
+  transition: color 0.3s;
+}
+
+.header .btn-book-a-table:hover {
+  background: transparent;
   color: var(--accent-color);
-  font-size: 36px;
 }
 
-.header .btn-getstarted,
-.header .btn-getstarted:focus {
-  color: var(--contrast-color);
-  background: var(--accent-color);
-  font-size: 14px;
-  padding: 8px 26px;
-  margin: 0;
-  border-radius: 50px;
-  transition: 0.3s;
+.header .btn-book-a-table i {
+  font-size: 24px;
 }
 
-.header .btn-getstarted:hover,
-.header .btn-getstarted:focus:hover {
-  color: var(--contrast-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 15%);
-}
-
-@media (max-width: 1200px) {
-  .header .logo {
-    order: 1;
+/* Media query para a responsividade do header */
+@media (max-width: 1199px) {
+  .header .btn-book-a-table {
+    margin: 0 10px 0 0;
   }
 
-  .header .btn-getstarted {
-    order: 2;
-    margin: 0 15px 0 0;
-    padding: 6px 20px;
-  }
-
-  .header .navmenu {
-    order: 3;
+  .mobile-nav-active .header .logo {
+    position: relative;
+    z-index: 10000;
   }
 }
 
 .scrolled .header {
   box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+@media (min-width: 1200px) {
+  .navmenu {
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .navmenu ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  .navmenu li {
+    position: relative;
+  }
+
+  .navmenu>ul>li {
+    white-space: nowrap;
+    padding: 15px 14px;
+  }
+
+  .navmenu>ul>li:last-child {
+    padding-right: 0;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-color);
+    font-size: 15px;
+    padding: 0 2px;
+    font-family: var(--nav-font);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    transition: 0.3s;
+  }
+
+  .navmenu>ul>li>a:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: var(--nav-hover-color);
+    visibility: hidden;
+    width: 0px;
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  .navmenu a:hover:before,
+  .navmenu li:hover>a:before,
+  .navmenu .active:before {
+    visibility: visible;
+    width: 100%;
+  }
+
+  .navmenu li:hover>a,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: color-mix(in srgb, var(--nav-color) 80%, black 50%);
+  }
+
+  .navmenu .dropdown ul {
+    margin: 0;
+    padding: 10px 0;
+    background: var(--nav-dropdown-background-color);
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    left: 14px;
+    top: 130%;
+    opacity: 0;
+    transition: 0.3s;
+    border-radius: 4px;
+    z-index: 99;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navmenu .dropdown ul li {
+    min-width: 200px;
+  }
+
+  .navmenu .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    color: var(--nav-dropdown-color);
+  }
+
+  .navmenu .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  .navmenu .dropdown ul a:hover,
+  .navmenu .dropdown ul .active:hover,
+  .navmenu .dropdown ul li:hover>a {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  .navmenu .dropdown .dropdown ul {
+    top: 0;
+    left: -90%;
+    visibility: hidden;
+  }
+
+  .navmenu .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: -100%;
+    visibility: visible;
+  }
+}
+
+/* Mobile Navigation */
+@media (max-width: 1199px) {
+  .mobile-nav-toggle {
+    color: var(--nav-color);
+    font-size: 28px;
+    line-height: 0;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 10000;
+  }
+
+  .navmenu {
+    padding: 0;
+    z-index: 9997;
+  }
+
+  .navmenu ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    inset: 60px 20px 20px 20px;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 6px;
+    background-color: var(--nav-mobile-background-color);
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    box-shadow: none;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+  }
+
 }
 
 /*--------------------------------------------------------------
@@ -1751,7 +1931,7 @@ section,
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  
+
   /* Transições */
   transition: background-color 0.3s ease, outline-offset 0.2s ease, outline-color 0.2s ease, transform 0.2s ease;
   outline: 2px solid transparent; /* Borda invisível inicialmente */
@@ -2014,3 +2194,981 @@ img{
   }
 }
 
+/*--------------------------------------------------------------
+# Layout do Dashboard do Vendedor
+--------------------------------------------------------------*/
+
+/* Faz o layout ocupar a tela toda e remove o scroll do body */
+body.dashboard-active {
+  overflow: hidden;
+}
+
+.dashboard-layout {
+  display: flex;
+  height: 100vh; /* Ocupa a altura inteira da tela */
+  background-color: #f4f6f9; /* Um cinza bem claro para o fundo */
+  overflow: hidden; /* Impede o scroll na página inteira */
+}
+
+/* --- Coluna 1: Sidebar (Menu Lateral) --- */
+.dashboard-sidebar {
+  width: 260px;
+  flex-shrink: 0; /* Impede que o menu encolha */
+  background-color: #343a40; /* Cor escura do menu */
+  color: #c2c7d0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 20px 15px;
+  text-align: center;
+  border-bottom: 1px solid #4f5962;
+}
+
+.sidebar-header h3 {
+  color: #fff;
+  font-family: var(--default-font);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.sidebar-logo {
+  text-decoration: none;
+}
+.sidebar-logo h3 {
+  transition: color 0.3s;
+}
+.sidebar-logo:hover h3 {
+  color: #ffc107; /* Amarelo para destacar */
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.sidebar-nav li button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: #c2c7d0;
+  text-align: left;
+  font-family: var(--default-font);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav li button:hover {
+  background-color: #495057;
+  color: #fff;
+}
+
+.sidebar-nav li.active > button {
+  background-color: #d2691e; /* Cor da padaria para o item ativo */
+  color: #fff;
+  font-weight: 500;
+  border-left: 3px solid #ffc107; /* Um detalhe amarelo */
+}
+
+.sidebar-nav li i {
+  font-size: 1.1rem;
+  width: 20px;
+}
+
+.sidebar-nav li.disabled button {
+  color: #6c757d; /* Cinza escuro */
+  cursor: not-allowed;
+  background-color: transparent !important;
+}
+
+.sidebar-nav .has-submenu > a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #c2c7d0;
+  font-size: 1rem;
+  text-decoration: none;
+}
+.sidebar-nav .has-submenu > a:hover {
+  color: #fff;
+}
+
+.sidebar-nav .submenu {
+  list-style: none;
+  padding-left: 20px; /* Indentação do sub-menu */
+  background-color: rgba(0,0,0,0.2);
+}
+.sidebar-nav .submenu li button {
+  padding-left: 25px; /* Mais indentação para os itens */
+}
+
+
+/* --- Coluna 2: Conteúdo Principal --- */
+.dashboard-main-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main.dashboard-content {
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f4f6f9;
+  flex-grow: 1; /* Faz o conteúdo principal crescer */
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+  height: 70px; /* Altura fixa */
+  flex-shrink: 0; /* Impede que encolha */
+}
+
+.header-left i {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-menu span {
+  font-weight: 500;
+}
+
+.logout-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #555;
+  font-size: 1rem;
+}
+.logout-link:hover {
+  color: var(--accent-color);
+}
+
+.breadcrumbs {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: #d2691e;
+}
+
+.breadcrumbs span {
+  margin: 0 5px;
+}
+
+.painel-placeholder {
+  text-align: center;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+/*--------------------------------------------------------------
+# Tabela de Produtos - Refinamentos Visuais
+--------------------------------------------------------------*/
+.tabela-produtos th {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.tabela-produtos th i {
+  font-size: 12px;
+  color: #999;
+}
+
+.qtd-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+
+.qtd-baixa {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.qtd-alta {
+  background-color: #28a745;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-icon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-habilitado .status-icon {
+  background-color: #28a745;
+}
+
+.status-desabilitado .status-icon {
+  background-color: #dc3545;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.tabela-produtos th:first-child,
+.tabela-produtos td:first-child {
+  text-align: center;
+  width: 1%;
+}
+
+.tabela-produtos th:nth-child(2) {
+  width: 1%;
+}
+
+/*--------------------------------------------------------------
+# Painel: Conteúdo (Tabela, Filtros e Estilo Geral)
+--------------------------------------------------------------*/
+
+/* --- Layout e Cabeçalho Principal --- */
+.painel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinha no topo */
+  margin-bottom: 20px;
+}
+
+.painel-titulo {
+  font-family: var(--default-font); /* Fonte mais profissional para o painel */
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.acoes-header {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0; /* Impede que os botões encolham */
+  margin-left: 20px;
+}
+
+.painel-corpo {
+  display: flex;
+  align-items: flex-start; /* Alinha cards no topo */
+  gap: 30px;
+}
+
+/* --- Card Genérico (para Tabela e Filtros) --- */
+.content-card {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.tabela-container {
+  flex-grow: 1; /* Faz o card da tabela ocupar o espaço */
+  overflow-x: auto;
+}
+
+.filtros-sidebar {
+  flex-basis: 280px;
+  flex-shrink: 0;
+}
+
+.content-card-header {
+  padding: 12px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.content-card-header h4 {
+  margin: 0;
+  font-family: var(--default-font);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content-card-body {
+  padding: 20px;
+}
+
+/* --- Tabela de Produtos (Estilo Refinado) --- */
+.tabela-produtos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-produtos thead {
+  background-color: #fff;
+}
+
+.tabela-produtos th {
+  color: #007bff;
+  font-weight: 500;
+  padding: 15px;
+  border-bottom: 2px solid #dee2e6;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tabela-produtos td {
+  padding: 15px;
+  vertical-align: middle;
+  border: none;
+}
+
+.tabela-produtos tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+}
+.tabela-produtos tbody tr:last-child {
+  border-bottom: none;
+}
+.tabela-produtos tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.produto-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 500;
+}
+
+.produto-imagem-tabela {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  object-fit: cover;
+}
+
+/* --- Pílulas Coloridas --- */
+.qtd-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+.qtd-baixa { background-color: #ffc107; color: #333; }
+.qtd-alta { background-color: #28a745; }
+.qtd-zerado { background-color: #dc3545; }
+
+.status-estoque-baixo {
+  background-color: rgba(255, 193, 7, 0.1); /* Fundo Amarelo claro */
+  color: #a17800; /* Texto Amarelo escuro */
+}
+
+.status-estoque-baixo .status-icon {
+  background-color: #ffc107; /* Amarelo */
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.status-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.status-habilitado .status-icon { background-color: #28a745; }
+.status-desabilitado .status-icon { background-color: #dc3545; }
+
+
+/* --- Filtros --- */
+.form-filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.filtro-grupo input, .filtro-grupo select {
+  width: 100%;
+}
+
+/*--------------------------------------------------------------
+# Estilo do Avatar do Usuário no Dashboard
+--------------------------------------------------------------*/
+
+.user-avatar {
+  width: 40px;          /* Largura do avatar */
+  height: 40px;         /* Altura do avatar */
+  border-radius: 50%;   /* ESSA LINHA DEIXA A IMAGEM REDONDA */
+  object-fit: cover;    /* Garante que a imagem preencha o círculo sem distorcer */
+  border: 2px solid #ddd; /* Uma borda sutil para destacar */
+}
+
+/*--------------------------------------------------------------
+# Dropdown do Perfil de Usuário
+--------------------------------------------------------------*/
+
+/* Container para garantir o posicionamento correto do menu */
+.user-menu-container {
+  position: relative;
+}
+
+/* Transforma o menu do usuário em um botão clicável */
+button.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+button.user-menu:hover {
+  background-color: #f8f9fa; /* Fundo sutil ao passar o mouse */
+}
+button.user-menu .bi-caret-down-fill {
+  transition: transform 0.3s;
+}
+/* Gira a setinha quando o menu está aberto */
+button.user-menu .bi-caret-down-fill.open {
+  transform: rotate(180deg);
+}
+
+
+/* O menu dropdown em si */
+.profile-dropdown-menu {
+  position: absolute;
+  top: 120%; /* Posição abaixo do botão do usuário */
+  right: 0;
+  z-index: 1001; /* Garante que fique acima de outros elementos */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  min-width: 200px;
+  animation: fadeInDropdown 0.2s ease-out;
+}
+
+/* Animação de surgimento */
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Itens do menu */
+.profile-dropdown-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s;
+}
+.profile-dropdown-menu li a:hover {
+  background-color: #f8f9fa;
+  color: #000;
+}
+.profile-dropdown-menu li a i {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Linha divisória */
+.profile-dropdown-menu .divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 8px 0;
+}
+
+.tela-cadastro-vendedor {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.tela-cadastro-vendedor .container-cadastro {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 25px;
+}
+
+.tela-cadastro-vendedor .logo-cadastro img {
+    width: 150px;
+    height: auto;
+    animation: flutuar-logo-cadastro 5s ease-in-out infinite;
+}
+
+@keyframes flutuar-logo-cadastro {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.tela-cadastro-vendedor h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.tela-cadastro-vendedor .form-cadastro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tela-cadastro-vendedor .input-cadastro {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.tela-cadastro-vendedor .input-cadastro:focus {
+    outline: none;
+    border-color: #d33;
+}
+
+.tela-cadastro-vendedor .btn-concluir,
+.tela-cadastro-vendedor .btn-fazer-login {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.tela-cadastro-vendedor .btn-concluir {
+    background-color: #d33;
+    color: white;
+    border: none;
+}
+
+.tela-cadastro-vendedor .btn-concluir:hover {
+    background-color: #b22;
+}
+
+.tela-cadastro-vendedor .btn-fazer-login {
+    background-color: transparent;
+    color: #d33;
+    border: 2px solid #d33;
+}
+
+.tela-cadastro-vendedor .btn-fazer-login:hover {
+    background-color: #d33;
+    color: white;
+}
+
+@media (max-width: 480px) {
+    .tela-cadastro-vendedor .container-cadastro {
+        padding: 25px;
+    }
+
+    .tela-cadastro-vendedor h1 {
+        font-size: 1.8rem;
+    }
+
+    .tela-cadastro-vendedor .logo-cadastro img {
+        width: 120px;
+    }
+}
+
+
+/*--------------------------------------------------------------
+# Responsividade do Painel de Vendedor
+--------------------------------------------------------------*/
+
+/* Esconde elementos mobile no desktop por padrão */
+.mobile-only, .sidebar-toggle {
+  display: none;
+}
+
+/* --- Ponto de quebra para Tablets e Celulares (992px) --- */
+@media (max-width: 992px) {
+
+  /* 1. Layout Geral: Sidebar e Conteúdo */
+  .dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .dashboard-header .header-left {
+    display: block;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1099;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0s 0.3s linear;
+  }
+
+  .dashboard-layout.sidebar-open .dashboard-sidebar {
+    transform: translateX(0);
+  }
+
+  .dashboard-layout.sidebar-open .sidebar-overlay {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  /* 2. Lista de Produtos e Filtros */
+  .painel-corpo {
+    flex-direction: column;
+  }
+
+  .filtros-sidebar.desktop-only {
+    display: none; /* Esconde o filtro lateral */
+  }
+
+  .sidebar-nav .mobile-only {
+    display: block; /* Mostra o botão 'Filtros' no menu principal */
+  }
+
+  .filtros-mobile-wrapper {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1200;
+    visibility: hidden;
+  }
+
+  .filtros-mobile-wrapper.is-open {
+    visibility: visible;
+  }
+
+  .filtros-mobile-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 90%;
+    background-color: #fff;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .filtros-mobile-wrapper.is-open .filtros-mobile-panel {
+    transform: translateX(0);
+  }
+
+  .filtros-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+  }
+  .filtros-mobile-header h4 { margin: 0; font-size: 1.2rem; font-family: var(--default-font); }
+
+  .btn-close-filters { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+  .filtros-mobile-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+
+  .filtros-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .filtros-mobile-wrapper.is-open .filtros-overlay {
+    opacity: 1;
+  }
+
+  /* 3. Formulário de Cadastro */
+  .form-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .form-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .field-span-2 {
+    grid-column: span 1;
+  }
+}
+
+/* --- Ajustes finos para celulares pequenos (576px) --- */
+@media (max-width: 576px) {
+  main.dashboard-content {
+    padding: 15px;
+  }
+
+  .painel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .form-header, .form-body, .form-actions {
+    padding: 15px;
+  }
+}
+
+.user-menu-container {
+    position: relative;
+    margin-left: 15px;
+}
+
+.user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 6px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-menu-trigger:hover {
+    background-color: #e9ecef;
+}
+
+.header-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.user-menu-trigger span {
+    font-weight: 500;
+    color: #333;
+}
+
+.user-menu-trigger .bi-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+.user-menu-trigger .rotate-180 {
+    transform: rotate(180deg);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+    width: 200px;
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    z-index: 1001;
+    overflow: hidden;
+
+    /* Animação de entrada */
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-dropdown li a,
+.user-dropdown li button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    font-size: 15px;
+    color: #444;
+    text-decoration: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown li a:hover,
+.user-dropdown li button:hover {
+    background-color: #f8f9fa;
+    color: #d33; /* Cor principal do seu site */
+}
+
+.user-dropdown .dropdown-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 8px 0;
+}
+
+/* --- Estilos para Cards de Produto --- */
+.product-card {
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-image-container {
+    position: relative;
+}
+
+/* --- Estilos para Produtos Esgotados (NOVOS) --- */
+
+/* Aplica um filtro de tons de cinza em todo o card */
+.produto-esgotado {
+    filter: grayscale(80%);
+    opacity: 0.7;
+}
+
+/* Estiliza a tag "Esgotado" que aparece sobre a imagem */
+.tag-esgotado {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Estiliza o botão quando ele está desabilitado */
+.product-card-button:disabled {
+    background-color: #6c757d; /* Cinza */
+    cursor: not-allowed; /* Muda o cursor do mouse */
+    transform: none; /* Remove o efeito de hover */
+    box-shadow: none;
+}
+
+.product-card-button:disabled:hover {
+    background-color: #6c757d; /* Garante que a cor não mude no hover */
+}
+
+main {
+  min-height: 60vh;
+}

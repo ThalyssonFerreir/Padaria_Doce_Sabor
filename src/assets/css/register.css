@@ -1,0 +1,185 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.tela-register {
+  min-height: 100vh; /* ocupa 100% da altura da viewport */
+  width: 100%;
+  background-color: #e8ebe5;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;   
+  flex-direction: column;  
+}
+
+.tela-register .container-register{
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  gap: 2vh;
+}
+
+
+.tela-register .container-register .logo-register {
+  display: flex;
+  justify-content: center;
+  margin: 12px;
+}
+
+
+.tela-register .container-register .logo-register img{
+  width: 200px;
+  height: 200px;
+
+  animation: flutuar 5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px); /* sobe um pouco */
+  }
+  100% {
+    transform: translateY(0); /* volta */
+  }
+}
+
+
+.tela-register .container-register .form-register{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.tela-register .container-register h1{
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+  margin: 2vh;
+}
+
+.auth-heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.auth-heading h2 {
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #6c757d;
+  margin: 0;
+}
+.auth-heading h1 {
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #343a40;
+  margin: 0;
+}
+
+.input-register {
+  border: 1px solid #ccc;
+  outline: none; /* remove o contorno padrão do navegador */
+  padding: 10px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+  width: 30vh;
+}
+
+.input-register:focus {
+  border-color: #c00;
+}
+
+
+.button-register-form{
+  background-color: #d33;  
+  color: white;  
+  border: none;            
+  padding: 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50px;      
+  transition: background 0.3s ease;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+
+.button-register-form:hover {
+  background-color: #b22;
+}
+
+
+
+
+.button-register {
+  background-color: #d33;  
+  color: white;  
+  border: none;            
+  padding: 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50px;      
+  transition: background 0.3s ease;
+}
+
+.button-register:hover {
+  background-color: #b22;
+}
+
+
+
+
+.button-cad-vendedor-em-register{
+  background-color: rgb(250, 126, 18);
+  color: white;  
+  border: none;            
+  padding: 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50px;      
+  transition: background 0.3s ease;
+    
+}
+
+.button-cad-vendedor-em-register:hover {
+  transition: 0.3s;
+  background-color: rgb(215, 114, 25);
+  box-shadow: 2px 5px 4px rgb(160, 160, 160);
+}
+
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 576px) {
+  .tela-register {
+    padding: 15px;
+  }
+
+  .container-register {
+    width: 90%;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .logo-register img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .input-register {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-register-form,
+  .button-register,
+  .button-cad-vendedor-em-register {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

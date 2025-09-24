@@ -1,0 +1,124 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.tela-cad-vendedor {
+  min-height: 100vh; /* ocupa 100% da altura da viewport */
+  width: 100%;
+  background-color: #e8ebe5;
+  display: flex;
+  
+
+  justify-content: center;
+  align-items: center;   
+  flex-direction: column;  
+}
+
+.tela-cad-vendedor .container-cad-vendedor{
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  gap: 2vh;
+}
+
+
+.tela-cad-vendedor .container-cad-vendedor .logo-cad-vendedor{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+
+.tela-cad-vendedor .container-cad-vendedor .logo-cad-vendedor img{
+  width: 200px;
+  height: 200px;
+
+  animation: flutuar 5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px); /* sobe um pouco */
+  }
+  100% {
+    transform: translateY(0); /* volta */
+  }
+}
+
+
+
+
+.tela-cad-vendedor .container-cad-vendedor .form-cad-vendedor{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.tela-cad-vendedor .container-cad-vendedor h1{
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+}
+
+.input-cad-vendedor {
+    border: 1px solid #ccc;
+    outline: none; /* remove o contorno padrão do navegador */
+    padding: 10px;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    width: 30vh;
+}
+
+.input-cad-vendedor:focus {
+  border-color: #c00;
+}
+
+
+.button-cad-vendedor{
+  background-color: #d33;  
+  color: white;  
+  border: none;            
+  padding: 12px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50px;      
+  transition: background 0.3s ease;
+}
+
+.button-cad-vendedor:hover {
+  background-color: #b22;
+}
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 576px) {
+  .tela-cad-vendedor {
+    padding: 15px;
+  }
+
+  .container-cad-vendedor {
+    width: 90%;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .logo-cad-vendedor img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .input-cad-vendedor {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-cad-vendedor {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
