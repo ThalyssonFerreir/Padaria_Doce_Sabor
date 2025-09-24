@@ -42,7 +42,7 @@ function CartProvider({ children }) {
         fetchCart();
     }, [fetchCart]);
 
-    const addToCart = async (produto) => {
+    const addToCart = async (produto, onSuccess) => {
         if (!token) {
             toast.error('Você precisa estar logado para adicionar itens.');
             return;
@@ -59,6 +59,7 @@ function CartProvider({ children }) {
             }
             await fetchCart();
             toast.success(`"${produto.nome}" adicionado ao carrinho!`);
+            if (onSuccess) onSuccess();
         } catch (error) {
             toast.error(error.message);
         }

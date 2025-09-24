@@ -13,15 +13,24 @@ const Carrinho = () => {
     const usuario = localStorage.getItem('usuario');
 
     const handleQuantityChange = (productId, newQuantity) => {
-        if (newQuantity > 0) {
-            updateCartItemQuantity(productId, newQuantity);
-        } else {
-            removeCartItem(productId);
-        }
+    const item = cartItems.find(p => p.id === productId);
+    if (!item) return;
+
+    if (newQuantity > 0) {
+        updateCartItemQuantity(productId, newQuantity);
+        updateLocalProductStock(productId, item.quantity - newQuantity);
+    } else {
+        removeCartItem(productId);
+        updateLocalProductStock(productId, item.quantity); // devolve estoque
+    }
     };
 
-    const handleRemove = (productId) => {
-        removeCartItem(productId);
+   const handleRemove = (productId) => {
+    const item = cartItems.find(p => p.id === productId);
+    if (!item) return;
+
+    removeCartItem(productId);
+    updateLocalProductStock(productId, item.quantity); // devolve estoque
     };
 
     const calculateTotal = () => {

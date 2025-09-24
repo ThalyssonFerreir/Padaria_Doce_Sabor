@@ -42,7 +42,6 @@ const HomePage = () => (
         <Historia />
         <Menu />
         <Testimonials />
-        <Kits />
         <Chefs />
         <Gallery />
         <TrabalheConosco />
