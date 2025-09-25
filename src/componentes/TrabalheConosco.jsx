@@ -1,115 +1,97 @@
-import { useEffect, useState } from "react";
-import AOS from "aos";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import "../assets/css/auth.css";
+import AuthInput from "../componentes/AuthInput";
 
-function TrabalheConosco() {
-  const [status, setStatus] = useState("idle");
+export default function TrabalheConosco() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-  }, []);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("loading");
+    console.log("deu certo");
+    setIsLoading(true);
 
-    setTimeout(() => {
-      setStatus("sent");
-      e.target.reset();
-    }, 2000);
+    try {
+      const res = await fetch("http://localhost:3000/api/usuarios/solicitacao-vendedor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, telefone, endereco, descricao }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.message);
+        // Limpar campos
+        setNome(""); setEmail(""); setTelefone(""); setEndereco(""); setDescricao("");
+      } else {
+        toast.error(data.error || "Erro ao enviar solicitação.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro de conexão. Tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <section id="trabalhe-conosco" className="contact section">
-      <div className="container section-title">
-        <h2>Trabalhe conosco</h2>
-        <p>
-          <span>Gostou de nossa equipe?</span>{" "}
-          <span className="description-title">Junte-se a nós</span>
-        </p>
-      </div>
-
-      <div className="container">
-        <form className="php-email-form" onSubmit={handleSubmit}>
-          <div className="row gy-4">
-            <div className="col-md-6">
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                placeholder="Seu Nome Completo"
-                required
-              />
-            </div>
-
-            <div className="col-md-6">
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="E-mail"
-                required
-              />
-            </div>
-
-            <div className="col-md-6">
-              <input
-                type="tel"
-                name="phone"
-                className="form-control"
-                placeholder="Telefone (com DDD)"
-                required
-              />
-            </div>
-
-            <div className="col-md-6">
-              <input
-                type="text"
-                name="linkedin"
-                className="form-control"
-                placeholder="Link para seu LinkedIn (opcional)"
-              />
-            </div>
-
-            <div className="col-md-12">
-              <input
-                type="text"
-                name="desired_position"
-                className="form-control"
-                placeholder="Cargo Desejado"
-                required
-              />
-            </div>
-
-            <div className="col-md-12">
-              <label htmlFor="resume">
-                Anexar seu Currículo (PDF, DOC, DOCX - Máx. 5MB):
-              </label>
-              <input
-                type="file"
-                name="resume"
-                id="resume"
-                accept=".pdf,.doc,.docx"
-                className="form-control"
-                required
-              />
-            </div>
-
-            <div className="col-md-12 text-center">
-              {status === "loading" && <div className="loading">Enviando...</div>}
-              {status === "sent" && (
-                <div className="sent-message">
-                  Sua mensagem e currículo foram enviados com sucesso. Agradecemos o seu interesse!
-                </div>
-              )}
-              <button type="submit" disabled={status === "loading"}>
-                Enviar Candidatura
-              </button>
-            </div>
-          </div>
+    <div className="tela-register">
+      <div className="container-register">
+        <div className="logo-register">
+          <img src="/assets/img/imgsPadaria/PadariaLogo.webp" alt="Logo da Padaria" />
+        </div>
+        <h1>Trabalhe Conosco - Solicitação de Vendedor</h1>
+        <form onSubmit={handleSubmit} className="form-register">
+          <AuthInput
+            iconClassName="bi-person-badge-fill"
+            type="text"
+            placeholder="Nome da Loja ou Vendedor"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            required
+          />
+          <AuthInput
+            iconClassName="bi-envelope-fill"
+            type="email"
+            placeholder="Email Comercial"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <AuthInput
+            iconClassName="bi-telephone-fill"
+            type="text"
+            placeholder="Telefone/WhatsApp"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+            required
+          />
+          <AuthInput
+            iconClassName="bi-geo-alt-fill"
+            type="text"
+            placeholder="Endereço da Loja"
+            value={endereco}
+            onChange={(e) => setEndereco(e.target.value)}
+            required
+          />
+          <AuthInput
+            iconClassName="bi-card-text"
+            type="text"
+            placeholder="Descrição da Loja ou Serviços"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
+            required
+          />
+          <button type="submit" className="button-register-form" disabled={isLoading}>
+            {isLoading ? "Enviando..." : "Enviar Solicitação"}
+          </button>
         </form>
       </div>
-    </section>
+    </div>
   );
 }
-
-export default TrabalheConosco;
