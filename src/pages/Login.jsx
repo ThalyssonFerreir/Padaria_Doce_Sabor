@@ -5,7 +5,7 @@ import AuthInput from "../componentes/AuthInput";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [senha, setpassword] = useState("");
+  const [senha, setSenha] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -29,20 +29,17 @@ export default function Login() {
         setFeedback({ message: `Bem-vindo, ${data.usuario.nome}!`, type: "success" });
 
         if (data.token) {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('usuario', JSON.stringify(data.usuario));
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('usuario', JSON.stringify(data.usuario));
         }
 
-        // ==================================================================
-        // A MÁGICA DO REDIRECIONAMENTO ACONTECE AQUI
-        // ==================================================================
-        // Verificamos a 'role' do usuário que veio da API
-        if (data.usuario.role === 'VENDEDOR') {
-            // Se for vendedor, vai para o painel
-            setTimeout(() => navigate("/perfil-vendedor"), 1500);
-        } else {
-            // Se for qualquer outra coisa (CLIENTE), vai para a homepage
-            setTimeout(() => navigate("/homepage"), 1500);
+        if (data.solicitacaoVendedor) {
+          // Se for vendedor
+          if (data.solicitacaoVendedor.status === 'PENDENTE') {
+          }
+          setTimeout(() => navigate("/perfil-vendedor"), 1500);
+        } else if (data.usuario.role === 'CLIENTE') {
+          setTimeout(() => navigate("/homepage"), 1500);
         }
 
       } else {
@@ -52,7 +49,7 @@ export default function Login() {
       setFeedback({ message: "Erro de conexão. Tente novamente.", type: "error" });
       console.error(err);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -76,9 +73,9 @@ export default function Login() {
             <i className="bi bi-lock-fill"></i>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="password"
+              placeholder="Senha ou Código de Aprovação"
               value={senha}
-              onChange={(e) => setpassword(e.target.value)}
+              onChange={(e) => setSenha(e.target.value)}
               required
             />
             <i
