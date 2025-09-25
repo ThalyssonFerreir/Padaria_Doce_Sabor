@@ -7,8 +7,6 @@ export default function TrabalheConosco() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [endereco, setEndereco] = useState("");
-  const [descricao, setDescricao] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -20,14 +18,14 @@ export default function TrabalheConosco() {
       const res = await fetch("http://localhost:3000/api/usuarios/solicitacao-vendedor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, telefone, endereco, descricao }),
+        body: JSON.stringify({ nome, email, telefone}),
       });
 
       const data = await res.json();
       if (res.ok) {
         toast.success(data.message);
         // Limpar campos
-        setNome(""); setEmail(""); setTelefone(""); setEndereco(""); setDescricao("");
+        setNome(""); setEmail(""); setTelefone("");
       } else {
         toast.error(data.error || "Erro ao enviar solicitação.");
       }
@@ -50,7 +48,7 @@ export default function TrabalheConosco() {
           <AuthInput
             iconClassName="bi-person-badge-fill"
             type="text"
-            placeholder="Nome da Loja ou Vendedor"
+            placeholder="Nome de vendedor"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
@@ -69,22 +67,6 @@ export default function TrabalheConosco() {
             placeholder="Telefone/WhatsApp"
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
-            required
-          />
-          <AuthInput
-            iconClassName="bi-geo-alt-fill"
-            type="text"
-            placeholder="Endereço da Loja"
-            value={endereco}
-            onChange={(e) => setEndereco(e.target.value)}
-            required
-          />
-          <AuthInput
-            iconClassName="bi-card-text"
-            type="text"
-            placeholder="Descrição da Loja ou Serviços"
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
             required
           />
           <button type="submit" className="button-register-form" disabled={isLoading}>
