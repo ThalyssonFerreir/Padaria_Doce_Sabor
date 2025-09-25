@@ -113,6 +113,8 @@ function Paes() {
 
                     <p className="product-card-description">{produto.descricao}</p>
 
+                    <p className='product-estoque-description'>Estoque: {produto.estoque}</p>
+
                 </div>
 
                 <div className="product-card-button-wrapper">
