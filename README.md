@@ -18,7 +18,8 @@ O site é composto por diversas seções que mostram os serviços, produtos e va
 - **Início:** Página principal da nossa padaria.  
 - **Sobre:** Contando um pouco da nossa história.  
 - **Cardápio:** Lista de produtos como pães, doces, salgados e bolos.
-- **Carrinho:** Realiza a compra dos produtos selecionados. 
+- **Carrinho:** Realiza a compra dos produtos selecionados.
+- **Kit Festas:** Opções de kits personalizados para eventos e comemorações.  
 - **Nossos Clientes:** Depoimentos de clientes satisfeitos.  
 - **Nossos Chefs:** Apresentação da equipe de confeiteiros e padeiros.  
 - **Nossos Produtos:** Galeria de imagens dos produtos.  

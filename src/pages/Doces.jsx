@@ -66,6 +66,8 @@ function Doces() {
                     <h2 className="product-card-title">{produto.nome}</h2>
                     <p className="product-card-price">R$ {produto.preco.toFixed(2).replace('.', ',')}</p>
                     <p className="product-card-description">{produto.descricao}</p>
+                    <p className='product-estoque-description'>Estoque: {produto.estoque}</p>
+
                 </div>
                 <div className="product-card-button-wrapper">
                     <button

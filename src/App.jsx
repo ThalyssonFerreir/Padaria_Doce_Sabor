@@ -1,6 +1,7 @@
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cadvendedor from './pages/Cadvendedor';
+import ForgotPassword from "./pages/ForgotPassword";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from "react";
 import AOS from "aos";
@@ -73,6 +74,7 @@ function AppContent() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/cadvendedor" element={<Cadvendedor />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/perfil-vendedor" element={<PerfilVendedor />} />
 
                 {/* Rota "coringa" que aplica o layout com Header/Footer a TODAS as outras páginas */}

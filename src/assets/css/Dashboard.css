@@ -96,6 +96,7 @@
 }
 
 /* === ESTILOS PARA SELETORES DE STATUS (VERSÃO FINAL) === */
+/*vendedor status*/
 .status-select-wrapper {
     position: relative;
     display: inline-flex; /* Alinha o wrapper com o texto */
@@ -135,6 +136,36 @@
     border-top: 5px solid currentColor;
     pointer-events: none;
 }
+/*end vendedor status*/
+
+/*cliente status*/
+.cliente-status-select-wrapper {
+    position: relative;
+    display: inline-flex; /* Alinha o wrapper com o texto */
+    align-items: center;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+}
+.cliente-status-select-wrapper select {
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 6px 12px;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    line-height: inherit;
+    outline: none;
+    color: inherit; /* Herda a cor do texto do wrapper */
+}
+/*end cliente status*/
+
 /* As cores são aplicadas no wrapper */
 .status-pendente { background-color: #fff3cd; color: #664d03; }
 .status-preparo { background-color: #cff4fc; color: #055160; }

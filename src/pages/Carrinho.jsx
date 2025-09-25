@@ -5,6 +5,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import FinalizePurchaseButton from './FinalizePurchaseButton';
 import { toast } from 'react-toastify';
 
+
+
+
 const API_URL = 'http://localhost:3000';
 
 const Carrinho = () => {
@@ -81,6 +84,7 @@ const Carrinho = () => {
                                         <span className={styles.quantityDisplay}>{item.quantity}</span>
                                         <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)} className={styles.quantityButton}>+</button>
                                     </div>
+                                    <p className='product-estoque-description'>Estoque:  </p>
                                 </div>
                                 <button onClick={() => handleRemove(item.id)} className={styles.removeButton}>Remover</button>
                             </div>

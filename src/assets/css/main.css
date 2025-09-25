@@ -1916,6 +1916,11 @@ section,
   font-size: 14px;
 }
 
+.product-estoque-description {
+  color: #555;
+  font-size: 15px;
+}
+
 .product-card-button-wrapper {
   padding: 0 16px 16px 16px;
 }

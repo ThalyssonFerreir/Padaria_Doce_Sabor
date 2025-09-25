@@ -111,16 +111,13 @@ const HistoricoPedidosCliente = () => {
                                 <div>
 
                                     <strong>Pedido #{pedido.id}</strong>
-                                            <div className={`status-select-wrapper ${getStatusClass(pedido.status)}`}>
+                                            <div className={`cliente-status-select-wrapper ${getStatusClass(pedido.status)}`}>
                                             <select
                                                 value={pedido.status}
                                                 onChange={(e) => handleStatusChange(pedido.id, e.target.value)}
                                             >
-                                                <option value="PENDENTE">Pendente</option>
-                                                <option value="EM PREPARO">Em Preparo</option>
-                                                <option value="A CAMINHO">A Caminho</option>
-                                                <option value="ENTREGUE">Entregue</option>
-                                                <option value="CANCELADO">Cancelado</option>
+                                                <option>{pedido.status}</option>
+
                                             </select>
                                         </div>
 
