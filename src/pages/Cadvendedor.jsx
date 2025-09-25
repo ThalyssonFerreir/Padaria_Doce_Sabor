@@ -7,6 +7,7 @@ export default function Cadvendedor() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [codigo, setCodigo] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [feedback, setFeedback] = useState({ message: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -16,16 +17,20 @@ export default function Cadvendedor() {
     e.preventDefault();
     setIsLoading(true);
     setFeedback({ message: "", type: "" });
+
     try {
       const res = await fetch("http://localhost:3000/api/usuarios/vendedor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, senha }),
+        body: JSON.stringify({ nome, email, senha, codigo }),
       });
+
       const data = await res.json();
       if (res.ok) {
-        setFeedback({ message: "Cadastro de vendedor realizado com sucesso! Redirecionando...", type: "success" });
-        // MUDANÇA AQUI: Redireciona para o login após o sucesso
+        setFeedback({
+          message: "Cadastro de vendedor realizado com sucesso! Redirecionando...",
+          type: "success",
+        });
         setTimeout(() => navigate("/login"), 2000);
       } else {
         setFeedback({ message: data.error || "Erro ao cadastrar vendedor", type: "error" });
@@ -34,7 +39,7 @@ export default function Cadvendedor() {
       setFeedback({ message: "Erro de conexão. Tente novamente.", type: "error" });
       console.error(err);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -42,9 +47,9 @@ export default function Cadvendedor() {
     <div className="tela-register">
       <div className="container-register">
         <div className="logo-register">
-          <img src="/assets/img/imgsPadaria/PadariaLogo.webp" alt="Logo da Padaria"></img>
+          <img src="/assets/img/imgsPadaria/PadariaLogo.webp" alt="Logo da Padaria" />
         </div>
-        <h1>Cadastrar como vendedor</h1>
+        <h1>Cadastro de Vendedor - Aprovado</h1>
         <form onSubmit={handleSubmit} className="form-register">
           <AuthInput
             iconClassName="bi-person-badge-fill"
@@ -72,22 +77,25 @@ export default function Cadvendedor() {
               required
             />
             <i
-              className={`bi ${showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'} password-toggle-icon`}
+              className={`bi ${showPassword ? "bi-eye-slash-fill" : "bi-eye-fill"} password-toggle-icon`}
               onClick={() => setShowPassword(!showPassword)}
             ></i>
           </div>
-          {feedback.message && (
-            <p className={`mensagem ${feedback.type}`}>
-              {feedback.message}
-            </p>
-          )}
+          <AuthInput
+            iconClassName="bi-key-fill"
+            type="text"
+            placeholder="Código de Aprovação"
+            value={codigo}
+            onChange={(e) => setCodigo(e.target.value)}
+            required
+          />
+          {feedback.message && <p className={`mensagem ${feedback.type}`}>{feedback.message}</p>}
           <button type="submit" className="button-register-form" disabled={isLoading}>
-            {isLoading ? 'Concluindo...' : 'Concluir cadastro de vendedor'}
+            {isLoading ? "Concluindo..." : "Concluir Cadastro"}
           </button>
         </form>
         <div className="register-footer-links">
-            {/* MUDANÇA AQUI: O Link agora aponta para /login */}
-            <Link to="/login">Já tenho conta (Fazer login)</Link>
+          <Link to="/login">Já tenho conta (Fazer login)</Link>
         </div>
       </div>
     </div>
